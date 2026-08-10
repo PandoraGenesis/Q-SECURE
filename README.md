@@ -50,7 +50,6 @@ Hệ thống chạy trên hai máy tính độc lập trong cùng một mạng L
 
 ```
 Q-SECURE/
-├── venv/
 ├── assets/
 ├── logs/
 ├── src/
@@ -126,7 +125,6 @@ The system runs across two independent computers on the same local network, each
 
 ```
 Q-SECURE/
-├── venv/
 ├── assets/
 ├── logs/
 ├── src/
