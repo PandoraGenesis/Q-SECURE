@@ -1,0 +1,17 @@
+# ==============================================================
+# Q-SECURE - requirements.txt
+# Da kiem tra tuong thich: Python 3.11 / 3.12, Windows 10/11
+# ==============================================================
+
+# --- Giao dien & Da luong ---
+PyQt6==6.9.1
+
+# --- Xu ly anh ---
+# Luu y: opencv-python da co ban 5.x, nhung day la ban major moi
+# (thay doi API/da tach module), it tai lieu/vi du con tuong thich.
+# Ban 4.12.x van la nhanh on dinh, duoc cong dong dung rong rai nhat.
+opencv-python==4.12.0.88
+numpy>=2.0,<2.3.0
+
+# --- Giao tiep phan cung (ESP32) ---
+pyserial==3.5
