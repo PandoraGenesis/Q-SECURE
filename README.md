@@ -80,6 +80,7 @@ Q-SECURE/
 Dự án do hai học sinh thực hiện cho kỳ thi Khoa học Kỹ thuật cấp tỉnh: một thành viên phụ trách phần cơ khí và điện tử — chế tạo sa bàn vật lý, đấu nối các board ESP32, lắp servo và cảm biến LDR — thành viên còn lại phụ trách phần phần mềm và thuật toán — logic BB84, sifting, mã hóa, mạng, và giao diện PyQt6.
 
 *Giáo viên hướng dẫn:* _(điền tên)_
+
 *Trường:* _(điền tên)_
 
 ### Giấy phép
@@ -155,6 +156,7 @@ Q-SECURE/
 The project is built by two students for a provincial science and engineering fair: one member handles the mechanical and electronics side — building the physical rig, wiring the ESP32 boards, and mounting the servo and LDR sensor — while the other handles the software and algorithms — the BB84 logic, sifting, encryption, networking, and the PyQt6 interface.
 
 *Supervising teacher:* _(fill in)_
+
 *School:* _(fill in)_
 
 ### License
