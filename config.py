@@ -2,15 +2,12 @@
 config.py — File cau hinh TRUNG TAM cho du an Q-SECURE.
 
 Ca hai may (Alice va Bob) dung CHUNG file nay tu 1 repo Git duy nhat.
-Cac gia tri rieng cho tung may (ROLE, COM_PORT, IP...) duoc GHI DE
-boi file `config_local.py` — file nay KHONG duoc dua len Git (xem
-.gitignore), moi may tu tao rieng bang cach copy tu
-`config_local.example.py`.
+Cac gia tri rieng cho tung may (ROLE, COM_PORT, IP...) duoc GHI DE boi file `config_local.py` — file nay KHONG duoc dua len Git (xem
+.gitignore), moi may tu tao rieng bang cach copy tu `config_local.example.py`.
 """
 
 import os
 from enum import Enum
-
 
 # ============================================================
 # 1. VAI TRO THIET BI (ROLE)
@@ -19,11 +16,9 @@ class Role(Enum):
     ALICE = "ALICE"   # May gui (Ha)
     BOB = "BOB"        # May nhan (Son)
 
-
 # Doc ROLE tu bien moi truong truoc, mac dinh ALICE neu chua cau hinh.
 # Se bi ghi de boi config_local.py neu file do dinh nghia DEVICE_ROLE.
 DEVICE_ROLE = Role(os.getenv("QSECURE_ROLE", "ALICE").upper())
-
 
 # ============================================================
 # 2. CAU HINH MANG (TCP SOCKET)
@@ -35,7 +30,6 @@ NETWORK_CONFIG = {
     "SOCKET_TIMEOUT": 10,         # Timeout ket noi (giay)
 }
 
-
 # ============================================================
 # 3. CAU HINH PHAN CUNG (ESP32 - SERIAL)
 # ============================================================
@@ -44,7 +38,6 @@ SERIAL_CONFIG = {
     "BAUD_RATE": 115200,
     "SERIAL_TIMEOUT": 1,          # giay
 }
-
 
 # ============================================================
 # 4. THAM SO THUAT TOAN BB84 / SIFTING / QBER
@@ -55,7 +48,6 @@ QKD_PARAMS = {
     "QBER_THRESHOLD": 0.11,       # Nguong QBER toi da chap nhan (chuan BB84 ~11%)
 }
 
-
 # ============================================================
 # 5. DUONG DAN & TAI NGUYEN GIAO DIEN
 # ============================================================
@@ -64,7 +56,6 @@ PATHS = {
     "SAMPLE_IMAGE": "assets/sample_images/lena.png",
     "LOG_DIR": "logs",
 }
-
 
 # ============================================================
 # 6. GHI DE CAU HINH RIENG CHO TUNG MAY (neu co)
