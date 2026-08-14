@@ -55,6 +55,12 @@ PATHS = {
     "ASSETS_DIR": "assets",
     "SAMPLE_IMAGE": "assets/sample_images/lena.png",
     "LOG_DIR": "logs",
+    "SEMAPHORE_ICONS": {          # Anh/GIF minh hoa cho tung goc (0/45/90/135)
+        0: "assets/icons/semaphore_0.png",
+        45: "assets/icons/semaphore_45.png",
+        90: "assets/icons/semaphore_90.png",
+        135: "assets/icons/semaphore_135.png",
+    },
 }
 
 # ============================================================

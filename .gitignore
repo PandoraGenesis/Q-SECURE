@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- Q-SECURE: cau hinh rieng tung may, KHONG duoc chia se ---
+config_local.py
