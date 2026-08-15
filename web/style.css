@@ -79,14 +79,14 @@
   .reveal.in{opacity:1;transform:translateY(0);}
 
   /* ================= section shell ================= */
-  section{padding:88px 0;border-top:1px solid var(--line-faint);}
-  .section-head{margin-bottom:36px;max-width:72ch;}
+  section{padding:60px 0;border-top:1px solid var(--line-faint);}
+  .section-head{margin-bottom:26px;max-width:72ch;}
   .section-head h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-top:10px;}
   .section-head p{opacity:.85;margin-top:12px;font-size:1rem;}
   .tag{font-family:var(--font-display);font-size:.72rem;letter-spacing:.03em;border:1px solid var(--line-dim);border-radius:3px;padding:5px 9px;color:var(--line);opacity:.85;}
 
   /* ================= hero ================= */
-  .hero{padding:80px 0 44px;border-top:none;}
+  .hero{padding:56px 0 32px;border-top:none;}
   .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;}
   @media (max-width:860px){.hero-grid{grid-template-columns:1fr;}}
   .hero h1{font-size:clamp(2.1rem,5vw,3.5rem);line-height:1.06;margin:14px 0 16px;}
@@ -112,6 +112,13 @@
   .card h3,.card h4{font-size:1rem;color:var(--teal);margin-bottom:10px;}
   .card p{font-size:.94rem;opacity:.88;}
   .card.warn h3{color:var(--danger);}
+
+  /* ================= intro / lý thuyết ================= */
+  .intro-prose p{font-size:.96rem;opacity:.88;max-width:74ch;margin-bottom:16px;}
+  .intro-prose p:last-child{margin-bottom:0;}
+  .model-figure{margin-top:32px;border:1px solid var(--line-dim);border-radius:8px;background:var(--panel);padding:26px;}
+  .model-figure svg{display:block;margin:0 auto;max-width:680px;width:100%;height:auto;}
+  .model-figure .figure-caption{font-size:.82rem;opacity:.7;text-align:center;margin:16px auto 0;max-width:62ch;}
 
   /* ================= physics / malus ================= */
   .malus{border:1px solid var(--line-dim);border-radius:8px;background:var(--panel);padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;}

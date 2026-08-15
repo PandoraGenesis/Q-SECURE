@@ -16,6 +16,7 @@
     <div class="word"><b>Q</b>-SECURE</div>
     <nav class="topnav" id="topnav">
       <a href="#hero" data-sec="hero">Mở đầu</a>
+      <a href="#intro" data-sec="intro">Giới thiệu</a>
       <a href="#physics" data-sec="physics">Nguyên lý</a>
       <a href="#protocol" data-sec="protocol">Giao thức</a>
       <a href="#sim" data-sec="sim">Mô phỏng</a>
@@ -28,6 +29,7 @@
 
 <nav class="dotnav" id="dotnav">
   <a href="#hero" data-sec="hero"><span>Mở đầu</span></a>
+  <a href="#intro" data-sec="intro"><span>Giới thiệu</span></a>
   <a href="#physics" data-sec="physics"><span>Nguyên lý</span></a>
   <a href="#model" data-sec="model"><span>Mô hình hoá</span></a>
   <a href="#protocol" data-sec="protocol"><span>Giao thức</span></a>
@@ -81,6 +83,82 @@
     </div>
   </div>
 </header>
+
+<section id="intro">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Cơ sở lý thuyết</div>
+      <h2>Vật lý lượng tử đằng sau một góc servo</h2>
+      <p>Trước khi đi vào cách thiết bị hoạt động, cần hiểu ba nguyên lý lượng tử làm nền tảng cho toàn bộ giao thức BB84 — đây là lý do phương pháp này an toàn về mặt vật lý, không chỉ về mặt toán học như mật mã cổ điển.</p>
+    </div>
+
+    <div class="intro-prose reveal">
+      <p>Một photon phân cực không tồn tại ở một hướng cố định cho tới khi bị đo. Trước thời điểm đo, trạng thái phân cực của nó là một superposition — chồng chập đồng thời của mọi hướng có thể, được mô tả bằng biên độ xác suất chứ không phải một giá trị xác định. Đây không phải giới hạn của thiết bị đo, mà là bản chất của cơ học lượng tử: câu hỏi "photon đang phân cực theo hướng nào" chỉ có câu trả lời xác định sau khi phép đo được thực hiện.</p>
+
+      <p>Khi đo một photon bằng một kính lọc phân cực (basis), trạng thái superposition sụp đổ (collapse) về một trong hai kết quả khả dĩ của basis đó. Nếu basis đo trùng với basis mà Alice dùng để chuẩn bị photon, kết quả luôn khớp với giá trị Alice đã gửi. Nếu basis đo lệch — ví dụ Alice dùng basis ngang/dọc nhưng Bob đo bằng basis chéo — kết quả collapse về một trong hai giá trị với xác suất 50/50, hoàn toàn độc lập với giá trị Alice đã chuẩn bị ban đầu. Đây chính là cơ sở vật lý cho bước sifting: chỉ những lần basis trùng nhau mới cho kết quả đáng tin cậy.</p>
+
+      <p>Lý do sâu xa khiến nghe lén luôn để lại dấu vết nằm ở định lý không nhân bản (no-cloning theorem): không có cách nào sao chép một trạng thái lượng tử chưa biết trước mà không phá huỷ bản gốc. Với truyền tin cổ điển, kẻ nghe lén có thể sao y dữ liệu rồi gửi tiếp bản gốc nguyên vẹn, nạn nhân không hề hay biết. Với một photon, Eve không có lựa chọn tương tự — cách duy nhất để lấy thông tin là đo trực tiếp, và phép đo đó, nếu sai basis, làm thay đổi trạng thái trước khi nó tới được Bob, để lại sai số đo được qua QBER.</p>
+
+      <p>Trong BB84 nguyên bản, hai basis được dùng là basis ngang/dọc (0°/90°) và basis chéo (45°/135°) — bốn hướng phân cực cụ thể mà một nguồn sáng phân cực tuyến tính có thể tạo ra. Đây chính là lý do Q-SECURE chọn đúng bốn góc servo 0°/45°/90°/135°: không phải con số tuỳ ý, mà là ánh xạ trực tiếp từ bốn trạng thái phân cực mà giao thức BB84 gốc sử dụng.</p>
+    </div>
+
+    <div class="model-figure reveal">
+      <svg viewBox="0 0 680 246" width="100%" role="img" aria-label="Sơ đồ mô hình vật lý Q-SECURE: trạm Alice với servo và trạm Bob với cảm biến LDR, nối qua kênh quang và kênh mạng TCP">
+        <defs>
+          <marker id="introArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <text x="340" y="65" text-anchor="middle" font-family="var(--font-display)" font-size="11" fill="var(--line)" opacity="0.75">Kênh quang: servo → LDR</text>
+        <path d="M64,90 L64,75 L616,75 L616,90" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#introArrow)"/>
+
+        <line x1="190" y1="136" x2="490" y2="136" stroke="var(--teal)" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="340" y="156" text-anchor="middle" font-family="var(--font-display)" font-size="11" fill="var(--line)" opacity="0.75">Kênh mạng: TCP Socket qua LAN</text>
+
+        <rect x="44" y="90" width="40" height="40" rx="6" fill="var(--bg-2)" stroke="var(--line-dim)" stroke-width="1"/>
+        <circle cx="64" cy="110" r="15" fill="none" stroke="var(--line-dim)" stroke-width="1"/>
+        <g transform="rotate(45 64 110)"><line x1="64" y1="110" x2="64" y2="95" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/></g>
+        <circle cx="64" cy="110" r="3" fill="var(--accent)"/>
+        <line x1="64" y1="130" x2="64" y2="150" stroke="var(--line-dim)" stroke-width="1"/>
+        <rect x="44" y="150" width="40" height="24" rx="3" fill="var(--bg-2)" stroke="var(--line-dim)" stroke-width="1"/>
+        <line x1="52" y1="174" x2="52" y2="178" stroke="var(--line-dim)" stroke-width="1"/>
+        <line x1="64" y1="174" x2="64" y2="178" stroke="var(--line-dim)" stroke-width="1"/>
+        <line x1="76" y1="174" x2="76" y2="178" stroke="var(--line-dim)" stroke-width="1"/>
+        <line x1="84" y1="162" x2="110" y2="162" stroke="var(--line-dim)" stroke-width="1"/>
+        <rect x="110" y="106" width="80" height="60" rx="4" fill="var(--bg-2)" stroke="var(--line-dim)" stroke-width="1"/>
+        <rect x="105" y="166" width="90" height="10" rx="2" fill="var(--bg-2)" stroke="var(--line-dim)" stroke-width="1"/>
+        <text x="117" y="204" text-anchor="middle" font-family="var(--font-display)" font-size="12" fill="var(--accent)">Máy Hà — Alice</text>
+        <text x="117" y="222" text-anchor="middle" font-family="var(--font-display)" font-size="10" fill="var(--line)" opacity="0.7">Sinh bit, xoay servo</text>
+
+        <rect x="596" y="90" width="40" height="40" rx="6" fill="var(--bg-2)" stroke="var(--line-dim)" stroke-width="1"/>
+        <circle cx="616" cy="110" r="15" fill="none" stroke="var(--line-dim)" stroke-width="1"/>
+        <g stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round">
+          <line x1="616" y1="99" x2="616" y2="105" transform="rotate(0 616 110)"/>
+          <line x1="616" y1="99" x2="616" y2="105" transform="rotate(45 616 110)"/>
+          <line x1="616" y1="99" x2="616" y2="105" transform="rotate(90 616 110)"/>
+          <line x1="616" y1="99" x2="616" y2="105" transform="rotate(135 616 110)"/>
+          <line x1="616" y1="99" x2="616" y2="105" transform="rotate(180 616 110)"/>
+          <line x1="616" y1="99" x2="616" y2="105" transform="rotate(225 616 110)"/>
+          <line x1="616" y1="99" x2="616" y2="105" transform="rotate(270 616 110)"/>
+          <line x1="616" y1="99" x2="616" y2="105" transform="rotate(315 616 110)"/>
+        </g>
+        <circle cx="616" cy="110" r="3" fill="var(--accent)"/>
+        <line x1="616" y1="130" x2="616" y2="150" stroke="var(--line-dim)" stroke-width="1"/>
+        <rect x="596" y="150" width="40" height="24" rx="3" fill="var(--bg-2)" stroke="var(--line-dim)" stroke-width="1"/>
+        <line x1="604" y1="174" x2="604" y2="178" stroke="var(--line-dim)" stroke-width="1"/>
+        <line x1="616" y1="174" x2="616" y2="178" stroke="var(--line-dim)" stroke-width="1"/>
+        <line x1="628" y1="174" x2="628" y2="178" stroke="var(--line-dim)" stroke-width="1"/>
+        <line x1="596" y1="162" x2="570" y2="162" stroke="var(--line-dim)" stroke-width="1"/>
+        <rect x="490" y="106" width="80" height="60" rx="4" fill="var(--bg-2)" stroke="var(--line-dim)" stroke-width="1"/>
+        <rect x="485" y="166" width="90" height="10" rx="2" fill="var(--bg-2)" stroke="var(--line-dim)" stroke-width="1"/>
+        <text x="560" y="204" text-anchor="middle" font-family="var(--font-display)" font-size="12" fill="var(--accent)">Máy Sơn — Bob</text>
+        <text x="560" y="222" text-anchor="middle" font-family="var(--font-display)" font-size="10" fill="var(--line)" opacity="0.7">Đo cường độ qua LDR</text>
+      </svg>
+      <p class="figure-caption">Mô hình vật lý Q-SECURE: servo bên trạm Alice mã hoá góc phân cực, cảm biến LDR bên trạm Bob đọc lại tín hiệu qua kênh quang mô phỏng — song song với kênh mạng TCP giữa hai máy tính điều khiển.</p>
+    </div>
+  </div>
+</section>
 
 <section id="physics">
   <div class="wrap">

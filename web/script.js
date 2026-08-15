@@ -31,11 +31,16 @@
   topLinks.forEach(function(a){ a.addEventListener('click', function(){ topnav.classList.remove('open'); }); });
 
   /* ================= reveal on scroll ================= */
+  // rootMargin duong o day "mo rong" vung tinh giao cat xuong duoi man
+  // hinh 220px - khoi .reveal duoc coi la "da vao khung nhin" va bat dau
+  // hien ra TRUOC khi nguoi dung thuc su cuon toi do, nen luc cuon toi
+  // noi dung da hien san, khong con khoang trong cho hieu ung fade-in
+  // chay kip nhu truoc (threshold thap + rootMargin duong).
   var revealEls = document.querySelectorAll('.reveal');
   if(window.IntersectionObserver){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, {threshold:.12});
+    }, {threshold:.01, rootMargin:'0px 0px 220px 0px'});
     revealEls.forEach(function(el){ io.observe(el); });
   } else {
     revealEls.forEach(function(el){ el.classList.add('in'); });
