@@ -33,7 +33,7 @@
   h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:.01em;margin:0;}
   p{margin:0;}
   .eyebrow{
-    font-family:var(--font-display);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;
+    font-family:var(--font-display);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
     color:var(--accent);display:flex;align-items:center;gap:.5em;white-space:nowrap;
   }
   .eyebrow::before{content:"";width:1.4em;height:1px;background:var(--accent);display:inline-block;flex-shrink:0;}
@@ -87,8 +87,8 @@
 
   /* ================= hero ================= */
   .hero{padding:56px 0 32px;border-top:none;}
-  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:40px;align-items:center;}
-  @media (max-width:860px){.hero-grid{grid-template-columns:1fr;}}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:center;}
+  @media (max-width:1000px){.hero-grid{grid-template-columns:1fr;}}
   .hero h1{font-size:clamp(1.15rem,4.2vw,2.1rem);line-height:1.1;margin:14px 0 16px;}
   .hero h1 .h1-line{white-space:nowrap;}
   .hero p.lead{font-size:1.05rem;opacity:.88;}
@@ -296,3 +296,8 @@
 
   html.device-mobile table{font-size:.78rem;}
   html.device-mobile .log th,html.device-mobile .log td{padding:9px 8px;}
+
+  /* Tren dien thoai cot chu luon full-width (khong chia se voi khung vuong
+     nhu desktop), nen thu nho khung vuong o desktop khong giup ich gi o
+     day - can mot muc rieng, nho hon, de van khoa 1 hang khong xuong dong. */
+  html.device-mobile .eyebrow{font-size:.58rem;letter-spacing:.03em;}
