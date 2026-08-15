@@ -33,10 +33,10 @@
   h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:.01em;margin:0;}
   p{margin:0;}
   .eyebrow{
-    font-family:var(--font-display);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--accent);display:flex;align-items:center;gap:.5em;
+    font-family:var(--font-display);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--accent);display:flex;align-items:center;gap:.5em;white-space:nowrap;
   }
-  .eyebrow::before{content:"";width:1.4em;height:1px;background:var(--accent);display:inline-block;}
+  .eyebrow::before{content:"";width:1.4em;height:1px;background:var(--accent);display:inline-block;flex-shrink:0;}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
   button{font-family:var(--font-body);cursor:pointer;}
   button:focus-visible,[tabindex]:focus-visible,input:focus-visible,a:focus-visible{
@@ -87,22 +87,23 @@
 
   /* ================= hero ================= */
   .hero{padding:56px 0 32px;border-top:none;}
-  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:40px;align-items:center;}
   @media (max-width:860px){.hero-grid{grid-template-columns:1fr;}}
-  ..hero h1 {font-size: clamp(1.8rem, 4.5vw, 3.5rem);line-height: 1.1;margin: 14px 0 16px;text-wrap: balance;max-width: 12ch;}
+  .hero h1{font-size:clamp(1.15rem,4.2vw,2.1rem);line-height:1.1;margin:14px 0 16px;}
+  .hero h1 .h1-line{white-space:nowrap;}
   .hero p.lead{font-size:1.05rem;opacity:.88;}
   .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
   .honest-note{margin-top:24px;font-size:.82rem;opacity:.68;border-left:2px solid var(--accent);padding-left:12px;}
 
-  .dial-card{background:var(--panel);border:1px solid var(--line-dim);border-radius:6px;padding:22px;}
-  .dial-card .cap{font-family:var(--font-display);font-size:.72rem;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;}
-  .dial-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;}
-  .dial{width:220px;height:220px;}
-  .dial-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;}
-  .dial-btn{background:transparent;border:1px solid var(--line-dim);color:var(--line);border-radius:4px;padding:9px 0;font-family:var(--font-display);font-size:.85rem;transition:border-color .15s,color .15s,background .15s;}
+  .dial-card{background:var(--panel);border:1px solid var(--line-dim);border-radius:6px;padding:18px;aspect-ratio:1;display:flex;flex-direction:column;}
+  .dial-card .cap{font-family:var(--font-display);font-size:.65rem;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+  .dial-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;flex:1;min-height:0;}
+  .dial{width:min(65%,320px);height:auto;flex-shrink:1;}
+  .dial-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;}
+  .dial-btn{background:transparent;border:1px solid var(--line-dim);color:var(--line);border-radius:4px;padding:7px 0;font-family:var(--font-display);font-size:.76rem;transition:border-color .15s,color .15s,background .15s;}
   .dial-btn:hover{border-color:var(--accent);color:var(--accent);}
   .dial-btn.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
-  .dial-readout{font-family:var(--font-display);font-size:.85rem;text-align:center;min-height:2.6em;opacity:.9;}
+  .dial-readout{font-family:var(--font-display);font-size:.76rem;text-align:center;min-height:2.2em;opacity:.9;}
   .dial-readout b{color:var(--accent);}
 
   /* ================= two-col info blocks ================= */
@@ -241,3 +242,57 @@
   .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:flex-end;}
   .stack{display:flex;gap:8px;flex-wrap:wrap;}
   footer p{font-size:.8rem;opacity:.6;max-width:90ch;}
+
+  /* ======================================================================
+     THICH UNG THIET BI DI DONG
+     Toan bo quy tac duoi day CHI co hieu luc khi the <html> co class
+     "device-mobile" (do script trong <head> tu gan vao khi phat hien
+     dien thoai/tablet cam ung). Giao dien mac dinh phia tren KHONG doi -
+     nguoi dung desktop khong bi anh huong gi ca. Dat o cuoi file de danh
+     sach quy tac nay de doi chieu/bao tri nhu mot khoi rieng.
+     ====================================================================== */
+
+  html.device-mobile .wrap{padding:0 18px;}
+  html.device-mobile .topbar-inner{padding:14px 18px;}
+
+  /* Menu luon o dang danh sach xo xuong, khong cho theo do rong man hinh */
+  html.device-mobile .topnav{
+    position:fixed;top:53px;left:0;right:0;background:var(--bg-2);border-bottom:1px solid var(--line-dim);
+    flex-direction:column;gap:0;padding:6px 0;
+  }
+  html.device-mobile .topnav a{padding:14px 20px;width:100%;min-height:44px;display:flex;align-items:center;box-sizing:border-box;}
+  html.device-mobile .topnav a.active::after{display:none;}
+  html.device-mobile .burger{display:flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;}
+
+  /* Dai cham dieu huong ben phai can hover de hien nhan, khong hop voi
+     man hinh cam ung nen an han di thay vi chi an theo do rong. */
+  html.device-mobile .dotnav{display:none;}
+
+  html.device-mobile section{padding:44px 0;}
+  html.device-mobile .section-head{margin-bottom:22px;}
+  html.device-mobile .section-head h2{font-size:1.5rem;}
+
+  html.device-mobile .hero{padding:40px 0 28px;}
+  html.device-mobile .hero-grid{grid-template-columns:1fr;gap:32px;}
+  html.device-mobile .dial-card{aspect-ratio:auto;}
+  html.device-mobile .dial{width:100%;max-width:220px;height:auto;}
+
+  /* Cac luoi nhieu cot luon xep 1 cot tren thiet bi cam ung */
+  html.device-mobile .grid-2,
+  html.device-mobile .malus,
+  html.device-mobile .qbercalc,
+  html.device-mobile .arch-grid,
+  html.device-mobile .stations,
+  html.device-mobile .sim-data{grid-template-columns:1fr;}
+
+  html.device-mobile .channel{flex-direction:row;padding-top:6px;}
+
+  /* Tang vung cham toi thieu 44px cho moi thanh phan bam duoc */
+  html.device-mobile .btn{padding:12px 18px;min-height:44px;font-size:.85rem;}
+  html.device-mobile .dial-btn{padding:12px 0;min-height:44px;}
+  html.device-mobile .step-tab{padding:10px 14px;min-height:40px;}
+  html.device-mobile .toggle{min-height:44px;}
+  html.device-mobile .toggle input[type="checkbox"]{width:20px;height:20px;accent-color:var(--accent);}
+
+  html.device-mobile table{font-size:.78rem;}
+  html.device-mobile .log th,html.device-mobile .log td{padding:9px 8px;}

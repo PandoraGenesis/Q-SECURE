@@ -5,6 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Q-SECURE — Nguyên lý hoạt động</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script>
+// Chay som nhat co the (truoc khi CSS duoc ap dung) de gan class ngay tu
+// dau, tranh tinh trang trang hien kieu desktop roi mot nhip sau moi
+// "nhay" sang kieu mobile.
+//
+// CHI dua vao User-Agent, KHONG dua vao do rong cua so hay kha nang cam
+// ung: hai dau hieu do khong dang tin cay trong thuc te (mot cua so
+// desktop bi thu nho van co the bao "man hinh hep", va nhieu trinh
+// duyet desktop van khai bao co ho tro cham ke ca khi may khong co man
+// hinh cam ung that). User-Agent la dau hieu on dinh nhat de phan biet
+// dung dien thoai/tablet that voi may tinh.
+(function () {
+  "use strict";
+  var ua = navigator.userAgent;
+  var isPhoneUA = /Android.*Mobile|iPhone|iPod|Windows Phone|IEMobile/i.test(ua);
+  var isTabletUA = /iPad|Tablet/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua));
+
+  if (isPhoneUA || isTabletUA) {
+    document.documentElement.classList.add("device-mobile");
+  }
+})();
+</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,12 +49,23 @@
   </div>
 </div>
 
+<nav class="dotnav" id="dotnav">
+  <a href="#hero" data-sec="hero"><span>Mở đầu</span></a>
+  <a href="#intro" data-sec="intro"><span>Giới thiệu</span></a>
+  <a href="#physics" data-sec="physics"><span>Nguyên lý</span></a>
+  <a href="#model" data-sec="model"><span>Mô hình hoá</span></a>
+  <a href="#protocol" data-sec="protocol"><span>Giao thức</span></a>
+  <a href="#sim" data-sec="sim"><span>Mô phỏng</span></a>
+  <a href="#qber" data-sec="qber"><span>QBER</span></a>
+  <a href="#image" data-sec="image"><span>Mã hoá ảnh</span></a>
+  <a href="#arch" data-sec="arch"><span>Thiết bị</span></a>
+</nav>
 
 <header class="hero" id="hero">
   <div class="wrap hero-grid">
     <div class="reveal">
       <div class="eyebrow">Hệ thống Quantum Key Distribution theo giao thức BB84</div>
-      <h1>Một góc quay servo<br>giữ bí mật của một bit.</h1>
+      <h1><span class="h1-line">Một góc quay servo</span><br><span class="h1-line">giữ bí mật của một bit.</span></h1>
       <p class="lead">Q-SECURE dựng lại nguyên lý phân phối khoá lượng tử theo giao thức BB84 bằng phần cứng thật: mỗi bit được mã hoá thành một trong bốn góc quay servo, truyền qua kênh quang mô phỏng, và được &quot;đọc&quot; lại bằng cảm biến LDR ở đầu nhận.</p>
       <div class="hero-tags">
         <span class="tag">BB84</span>
