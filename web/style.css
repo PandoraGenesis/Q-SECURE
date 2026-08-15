@@ -80,7 +80,7 @@
 
   /* ================= section shell ================= */
   section{padding:60px 0;border-top:1px solid var(--line-faint);}
-  .section-head{margin-bottom:26px;max-width:72ch;}
+  .section-head{margin-bottom:26px;}
   .section-head h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-top:10px;}
   .section-head p{opacity:.85;margin-top:12px;font-size:1rem;}
   .tag{font-family:var(--font-display);font-size:.72rem;letter-spacing:.03em;border:1px solid var(--line-dim);border-radius:3px;padding:5px 9px;color:var(--line);opacity:.85;}
@@ -89,10 +89,10 @@
   .hero{padding:56px 0 32px;border-top:none;}
   .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;}
   @media (max-width:860px){.hero-grid{grid-template-columns:1fr;}}
-  .hero h1{font-size:clamp(2.1rem,5vw,3.5rem);line-height:1.06;margin:14px 0 16px;}
-  .hero p.lead{font-size:1.05rem;opacity:.88;max-width:48ch;}
+  ..hero h1 {font-size: clamp(1.8rem, 4.5vw, 3.5rem);line-height: 1.1;margin: 14px 0 16px;text-wrap: balance;max-width: 12ch;}
+  .hero p.lead{font-size:1.05rem;opacity:.88;}
   .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
-  .honest-note{margin-top:24px;font-size:.82rem;opacity:.68;border-left:2px solid var(--accent);padding-left:12px;max-width:50ch;}
+  .honest-note{margin-top:24px;font-size:.82rem;opacity:.68;border-left:2px solid var(--accent);padding-left:12px;}
 
   .dial-card{background:var(--panel);border:1px solid var(--line-dim);border-radius:6px;padding:22px;}
   .dial-card .cap{font-family:var(--font-display);font-size:.72rem;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;}
@@ -114,11 +114,9 @@
   .card.warn h3{color:var(--danger);}
 
   /* ================= intro / lý thuyết ================= */
-  .intro-prose p{font-size:.96rem;opacity:.88;max-width:74ch;margin-bottom:16px;}
-  .intro-prose p:last-child{margin-bottom:0;}
   .model-figure{margin-top:32px;border:1px solid var(--line-dim);border-radius:8px;background:var(--panel);padding:26px;}
   .model-figure svg{display:block;margin:0 auto;max-width:680px;width:100%;height:auto;}
-  .model-figure .figure-caption{font-size:.82rem;opacity:.7;text-align:center;margin:16px auto 0;max-width:62ch;}
+  .model-figure .figure-caption{font-size:.82rem;opacity:.7;text-align:center;margin:16px auto 0;}
 
   /* ================= physics / malus ================= */
   .malus{border:1px solid var(--line-dim);border-radius:8px;background:var(--panel);padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;}
@@ -152,7 +150,7 @@
   .step-panel{position:relative;border:1px solid var(--line-dim);border-radius:8px;background:var(--bg-2);padding:30px 28px;min-height:150px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
   .step-panel .num-bg{position:absolute;top:2px;right:18px;font-family:var(--font-display);font-size:5rem;color:var(--line-faint);line-height:1;pointer-events:none;}
   .step-panel h4{position:relative;color:var(--accent);font-size:1.05rem;margin-bottom:10px;}
-  .step-panel p{position:relative;font-size:.94rem;opacity:.88;max-width:62ch;}
+  .step-panel p{position:relative;font-size:.94rem;opacity:.88;}
   .step-nav{display:flex;justify-content:space-between;margin-top:22px;}
 
   /* ================= buttons ================= */
@@ -242,4 +240,4 @@
   footer{padding:44px 0 60px;border-top:1px solid var(--line-faint);}
   .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:flex-end;}
   .stack{display:flex;gap:8px;flex-wrap:wrap;}
-  footer p{font-size:.8rem;opacity:.6;max-width:54ch;}
+  footer p{font-size:.8rem;opacity:.6;max-width:90ch;}
