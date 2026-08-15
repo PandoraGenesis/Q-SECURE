@@ -50,20 +50,36 @@ Hệ thống chạy trên hai máy tính độc lập trong cùng một mạng L
 
 ```
 Q-SECURE/
+├── ESP32/
+│   ├── q_secure_alice_esp32c3.ino
+│   ├── q_secure_bob_esp32c3.ino
+│   ├── q_secure_esp32.ino
 ├── assets/
+│   ├── icons/
+│   |  ├── semaphore_0.png
+│   |  ├── semaphore_135.png
+│   |  ├── semaphore_45.png
+│   |  ├── semaphore_90.png
+│   ├── sample_images/
+├── config/
+│   ├── config.py
+│   ├── config_local.example.py
 ├── logs/
 ├── src/
 │   ├── main.py
-│   ├── core/          # BB84, sifting, QBER, mã hóa ảnh
-│   ├── network/         # TCP client/server
+│   ├── core/             # BB84, sifting, QBER, mã hóa ảnh
+│   ├── network/          # TCP client/server
 │   ├── hardware/         # giao tiếp Serial với ESP32
 │   ├── gui/              # giao diện PyQt6 + QThread workers
 │   └── utils/
-├── config.py
-├── config_local.example.py
-├── requirements.txt
+├── web
+│   ├── index.html
+│   ├── script.js
+│   ├── style.css
 ├── .gitignore
+├── LICENSE
 ├── README.md
+├── requirements.txt
 └── run.bat
 ```
 
@@ -126,20 +142,36 @@ The system runs across two independent computers on the same local network, each
 
 ```
 Q-SECURE/
+├── ESP32/
+│   ├── q_secure_alice_esp32c3.ino
+│   ├── q_secure_bob_esp32c3.ino
+│   ├── q_secure_esp32.ino
 ├── assets/
+│   ├── icons/
+│   |  ├── semaphore_0.png
+│   |  ├── semaphore_135.png
+│   |  ├── semaphore_45.png
+│   |  ├── semaphore_90.png
+│   ├── sample_images/
+├── config/
+│   ├── config.py
+│   ├── config_local.example.py
 ├── logs/
 ├── src/
 │   ├── main.py
-│   ├── core/          # BB84, sifting, QBER, image cipher
-│   ├── network/        # TCP client/server
-│   ├── hardware/        # ESP32 Serial communication
-│   ├── gui/             # PyQt6 views + QThread workers
+│   ├── core/             # BB84, sifting, QBER, mã hóa ảnh
+│   ├── network/          # TCP client/server
+│   ├── hardware/         # giao tiếp Serial với ESP32
+│   ├── gui/              # giao diện PyQt6 + QThread workers
 │   └── utils/
-├── config.py
-├── config_local.example.py
-├── requirements.txt
+├── web
+│   ├── index.html
+│   ├── script.js
+│   ├── style.css
 ├── .gitignore
+├── LICENSE
 ├── README.md
+├── requirements.txt
 └── run.bat
 ```
 
