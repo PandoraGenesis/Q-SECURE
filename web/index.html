@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q-SECURE — Nguyên lý hoạt động</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="progress" id="progressBar"></div>
+
+<div class="topbar">
+  <div class="topbar-inner wrap">
+    <div class="word"><b>Q</b>-SECURE</div>
+    <nav class="topnav" id="topnav">
+      <a href="#hero" data-sec="hero">Mở đầu</a>
+      <a href="#physics" data-sec="physics">Nguyên lý</a>
+      <a href="#protocol" data-sec="protocol">Giao thức</a>
+      <a href="#sim" data-sec="sim">Mô phỏng</a>
+      <a href="#qber" data-sec="qber">QBER &amp; ảnh</a>
+      <a href="#arch" data-sec="arch">Thiết bị</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Mở menu">MENU</button>
+  </div>
+</div>
+
+<nav class="dotnav" id="dotnav">
+  <a href="#hero" data-sec="hero"><span>Mở đầu</span></a>
+  <a href="#physics" data-sec="physics"><span>Nguyên lý</span></a>
+  <a href="#model" data-sec="model"><span>Mô hình hoá</span></a>
+  <a href="#protocol" data-sec="protocol"><span>Giao thức</span></a>
+  <a href="#sim" data-sec="sim"><span>Mô phỏng</span></a>
+  <a href="#qber" data-sec="qber"><span>QBER</span></a>
+  <a href="#image" data-sec="image"><span>Mã hoá ảnh</span></a>
+  <a href="#arch" data-sec="arch"><span>Thiết bị</span></a>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="eyebrow">Hệ thống Quantum Key Distribution theo giao thức BB84</div>
+      <h1>Một góc quay servo<br>giữ bí mật của một bit.</h1>
+      <p class="lead">Q-SECURE dựng lại nguyên lý phân phối khoá lượng tử theo giao thức BB84 bằng phần cứng thật: mỗi bit được mã hoá thành một trong bốn góc quay servo, truyền qua kênh quang mô phỏng, và được &quot;đọc&quot; lại bằng cảm biến LDR ở đầu nhận.</p>
+      <div class="hero-tags">
+        <span class="tag">BB84</span>
+        <span class="tag">ESP32 + Servo + LDR</span>
+        <span class="tag">TCP Socket</span>
+        <span class="tag">Mã hoá ảnh XOR</span>
+      </div>
+      <p class="honest-note">Lưu ý minh bạch: đây là mô hình cơ – điện mô phỏng đúng LOGIC của BB84, không dùng photon đơn lẻ thật. Xem mục &quot;Mô hình hoá&quot; bên dưới để biết chính xác thiết bị tái hiện gì và đơn giản hoá gì.</p>
+    </div>
+
+    <div class="dial-card reveal">
+      <div class="cap">Bốn góc — bốn trạng thái</div>
+      <div class="dial-wrap">
+        <svg class="dial" viewBox="0 0 220 220" id="heroDial">
+          <circle cx="110" cy="110" r="95" fill="none" stroke="var(--line-dim)" stroke-width="1"/>
+          <line x1="110" y1="15" x2="110" y2="205" stroke="var(--line-faint)" stroke-width="1"/>
+          <line x1="15" y1="110" x2="205" y2="110" stroke="var(--line-faint)" stroke-width="1"/>
+          <line x1="42" y1="42" x2="178" y2="178" stroke="var(--line-faint)" stroke-width="1" stroke-dasharray="3 4"/>
+          <line x1="178" y1="42" x2="42" y2="178" stroke="var(--line-faint)" stroke-width="1" stroke-dasharray="3 4"/>
+          <text x="110" y="10" text-anchor="middle" font-family="var(--font-display)" font-size="9" fill="var(--line)" opacity="0.6">90°</text>
+          <text x="212" y="114" text-anchor="start" font-family="var(--font-display)" font-size="9" fill="var(--line)" opacity="0.6">0°</text>
+          <text x="188" y="34" text-anchor="middle" font-family="var(--font-display)" font-size="9" fill="var(--line)" opacity="0.6">45°</text>
+          <text x="32" y="192" text-anchor="middle" font-family="var(--font-display)" font-size="9" fill="var(--line)" opacity="0.6">135°</text>
+          <g id="needle" style="transform-origin:110px 110px;transition:transform .5s cubic-bezier(.34,1.4,.64,1);">
+            <line x1="110" y1="110" x2="110" y2="24" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="110" cy="110" r="6" fill="var(--accent)"/>
+          </g>
+        </svg>
+        <div class="dial-btns">
+          <button class="dial-btn active" data-angle="0">0°</button>
+          <button class="dial-btn" data-angle="45">45°</button>
+          <button class="dial-btn" data-angle="90">90°</button>
+          <button class="dial-btn" data-angle="135">135°</button>
+        </div>
+        <div class="dial-readout" id="dialReadout"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="physics">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Nền tảng vật lý</div>
+      <h2>Ánh sáng phân cực theo một hướng nhất định</h2>
+      <p>Trong BB84 nguyên bản, mỗi bit được mã hoá bằng hướng phân cực của một photon đơn lẻ. Một kính lọc phân cực chỉ cho ánh sáng cùng hướng đi qua trọn vẹn — lệch hướng càng nhiều, ánh sáng lọt qua càng ít, theo định luật Malus: cường độ truyền qua tỉ lệ với <b>cos²(Δθ)</b> của góc lệch giữa hai kính lọc.</p>
+    </div>
+
+    <div class="malus reveal">
+      <div class="malus-visual">
+        <div class="filters">
+          <div class="filter">
+            <svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="30" fill="none" stroke="var(--line)" stroke-width="2"/><line x1="35" y1="8" x2="35" y2="62" stroke="var(--accent)" stroke-width="2"/></svg>
+            <span>KÍNH PHÁT (0°)</span>
+          </div>
+          <div class="filter">
+            <svg width="70" height="70" viewBox="0 0 70 70" id="filter2svg"><circle cx="35" cy="35" r="30" fill="none" stroke="var(--line)" stroke-width="2"/><line id="filter2line" x1="35" y1="8" x2="35" y2="62" stroke="var(--teal)" stroke-width="2" style="transform-origin:35px 35px;"/></svg>
+            <span>KÍNH ĐO CỦA BOB</span>
+          </div>
+        </div>
+        <div class="beam-track"><div class="beam-fill" id="beamFill"></div></div>
+      </div>
+
+      <div class="malus-controls">
+        <label>Góc lệch kính đo (Δθ) <span id="malusAngleLabel">0°</span></label>
+        <input type="range" id="malusSlider" min="0" max="180" value="0" step="1">
+        <div class="malus-readout">
+          Cường độ truyền qua ≈ <span class="big" id="malusIntensity">100%</span><br>
+          <span style="opacity:.7">cos²(0°) = 1.00</span>
+        </div>
+        <div class="malus-callout" id="malusCallout">Hai kính cùng hướng — ánh sáng truyền qua gần như trọn vẹn, tương ứng lúc Bob đo đúng basis Alice đã dùng.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="model">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Mô hình hoá</div>
+      <h2>Từ photon lượng tử đến servo và LDR</h2>
+      <p>Photon đơn lẻ rất khó tạo và đo bằng thiết bị phổ thông. Q-SECURE thay thế bằng một mô hình cơ – điện tái hiện đúng logic toán học của phép đo lệch basis, dùng linh kiện có thể lắp ráp và trình diễn trực tiếp.</p>
+    </div>
+    <div class="maptable-wrap reveal">
+      <table class="maptable">
+        <thead><tr><th>Khái niệm trong BB84 thật</th><th>Q-SECURE tái hiện bằng</th></tr></thead>
+        <tbody>
+          <tr><td class="real">Photon đơn lẻ</td><td class="model">Xung tín hiệu từ nguồn sáng thường</td></tr>
+          <tr><td class="real">Hướng phân cực photon</td><td class="model">Góc quay servo (0° / 45° / 90° / 135°)</td></tr>
+          <tr><td class="real">Kính lọc phân cực của Bob</td><td class="model">Góc &quot;kỳ vọng&quot; khi phần mềm đọc cảm biến LDR</td></tr>
+          <tr><td class="real">Đo đúng basis → thu đúng bit</td><td class="model">Servo & LDR cùng góc → đọc đúng giá trị đã gửi</td></tr>
+          <tr><td class="real">Đo sai basis → kết quả ngẫu nhiên (định lý không nhân bản lượng tử)</td><td class="model">Phần mềm chủ động sinh số ngẫu nhiên khi basis không khớp</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="protocol">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Giao thức BB84</div>
+      <h2>Sáu bước để có một khoá dùng chung</h2>
+      <p>Thứ tự dưới đây không thể đảo — mỗi bước phụ thuộc kết quả của bước trước. Bấm từng bước để xem thiết bị làm gì tại thời điểm đó.</p>
+    </div>
+    <div class="stepper reveal">
+      <div class="step-tabs" id="stepTabs"></div>
+      <div class="step-panel">
+        <span class="num-bg" id="stepNumBg">1</span>
+        <h4 id="stepTitle"></h4>
+        <p id="stepDesc"></p>
+      </div>
+      <div class="step-nav">
+        <button class="btn secondary" id="stepPrev">← Bước trước</button>
+        <button class="btn secondary" id="stepNext">Bước tiếp →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sim">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Mô phỏng trực tiếp</div>
+      <h2>Chạy thử một phiên trao đổi khoá</h2>
+      <p>Mỗi vòng: Alice chọn ngẫu nhiên 1 bit và 1 basis, servo xoay đúng góc tương ứng, tín hiệu đi qua kênh quang, Bob đo bằng basis ngẫu nhiên của riêng mình. Chỉ những vòng mà hai bên tình cờ trùng basis mới được giữ lại làm khoá.</p>
+    </div>
+
+    <div class="sim reveal">
+      <div class="sim-rail">
+        <div class="rail-step" data-step="0">1. Sinh bit + basis</div>
+        <div class="rail-step" data-step="1">2. Servo mã hoá góc</div>
+        <div class="rail-step" data-step="2">3. Truyền qua kênh quang</div>
+        <div class="rail-step" data-step="3">4. Bob đo bằng LDR</div>
+        <div class="rail-step" data-step="4">5. So sánh basis (sifting)</div>
+        <div class="rail-step" data-step="5">6. Tính QBER</div>
+      </div>
+
+      <div class="stations">
+        <div class="station">
+          <div class="label"><span>MÁY HÀ — ALICE</span><span id="aliceTag">—</span></div>
+          <svg viewBox="0 0 140 140" width="140" height="140">
+            <rect x="20" y="95" width="100" height="26" rx="3" fill="none" stroke="var(--line-dim)"/>
+            <text x="70" y="112" text-anchor="middle" font-family="var(--font-display)" font-size="9" fill="var(--line)" opacity=".7">ESP32</text>
+            <circle cx="70" cy="55" r="42" fill="none" stroke="var(--line-dim)"/>
+            <g id="aliceNeedle" style="transform-origin:70px 55px;transition:transform .5s cubic-bezier(.34,1.4,.64,1);">
+              <line x1="70" y1="55" x2="70" y2="16" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+            </g>
+            <circle cx="70" cy="55" r="4" fill="var(--accent)"/>
+          </svg>
+          <div class="readout" id="aliceReadout">Sẵn sàng</div>
+        </div>
+
+        <div class="channel">
+          <svg viewBox="0 0 40 100" height="100">
+            <line x1="20" y1="4" x2="20" y2="96" stroke="var(--line-dim)" stroke-width="1" stroke-dasharray="4 5"/>
+            <circle id="photon" cx="20" cy="4" r="5" fill="var(--accent)" opacity="0"/>
+          </svg>
+          <span class="eve-badge" id="eveBadge">EVE ⏺</span>
+        </div>
+
+        <div class="station">
+          <div class="label"><span>MÁY SƠN — BOB</span><span id="bobTag">—</span></div>
+          <svg viewBox="0 0 140 140" width="140" height="140">
+            <rect x="20" y="95" width="100" height="26" rx="3" fill="none" stroke="var(--line-dim)"/>
+            <text x="70" y="112" text-anchor="middle" font-family="var(--font-display)" font-size="9" fill="var(--line)" opacity=".7">ESP32</text>
+            <rect x="40" y="18" width="60" height="60" rx="4" fill="none" stroke="var(--line-dim)"/>
+            <text x="70" y="44" text-anchor="middle" font-family="var(--font-display)" font-size="8" fill="var(--line)" opacity=".6">LDR</text>
+            <rect id="ldrFill" x="46" y="70" width="48" height="4" fill="var(--teal)"/>
+            <line x1="40" y1="78" x2="100" y2="78" stroke="var(--line-dim)"/>
+          </svg>
+          <div class="readout" id="bobReadout">Sẵn sàng</div>
+        </div>
+      </div>
+
+      <div class="sim-controls">
+        <button class="btn" id="stepBtn">Chạy 1 vòng</button>
+        <button class="btn secondary" id="autoBtn">Chạy 24 vòng tự động</button>
+        <button class="btn secondary" id="resetBtn">Đặt lại</button>
+        <label class="toggle"><input type="checkbox" id="eveToggle"> Kích hoạt Eve (kẻ nghe lén chặn giữa đường)</label>
+      </div>
+
+      <div class="sim-data">
+        <div class="log">
+          <table>
+            <thead><tr><th>#</th><th>Alice</th><th>Bob</th><th>Basis</th><th>Kết quả</th></tr></thead>
+            <tbody id="logBody"></tbody>
+          </table>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="m-label">Khoá đã sift</div>
+            <div class="keybits" id="keyBits">—</div>
+          </div>
+          <div class="metric">
+            <div class="m-label">QBER (ngưỡng an toàn 11%)</div>
+            <div class="m-value" id="qberValue">—</div>
+            <div class="qber-bar"><div class="qber-thresh"></div><div class="qber-fill" id="qberFill"></div></div>
+            <div class="verdict idle" id="verdict">Chưa đủ dữ liệu — chạy vài vòng để ước lượng QBER.</div>
+          </div>
+        </div>
+      </div>
+      <p class="note">Để minh hoạ dễ hiểu, trang này so sánh toàn bộ khoá đã sift để tính QBER. Trong triển khai thật, chỉ một phần nhỏ được công khai so sánh rồi bỏ đi — phần còn lại mới thật sự dùng làm khoá mã hoá ảnh.</p>
+
+      <div class="imgdemo" id="imgDemo" style="display:none;">
+        <div class="cell"><canvas id="imgOrig" width="64" height="64"></canvas><span>Ảnh gốc</span></div>
+        <div class="arrow">XOR →</div>
+        <div class="cell"><canvas id="imgEnc" width="64" height="64"></canvas><span>Đã mã hoá</span></div>
+        <div class="arrow">XOR →</div>
+        <div class="cell"><canvas id="imgDec" width="64" height="64"></canvas><span>Giải mã bằng khoá vừa sift</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="qber">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Vì sao sai số lại tố cáo kẻ nghe lén</div>
+      <h2>QBER: tỷ lệ lỗi bit lượng tử</h2>
+      <p>QBER là tỷ lệ bit sai trong số các bit đã giữ lại sau sifting. Tấn công chặn-đo-gửi lại (intercept–resend) buộc Eve đoán basis — đúng 50% số lần — nên mỗi lần đoán sai, có 50% khả năng bit bị đảo khi tới Bob. Gộp lại, việc nghe lén toàn bộ đường truyền tạo ra QBER kỳ vọng khoảng 25%, vượt xa ngưỡng an toàn 11% mà hệ thống đặt ra.</p>
+    </div>
+    <div class="qbercalc reveal">
+      <div>
+        <div class="formula">QBER ≈ 0.25 × (tỷ lệ photon bị Eve chặn đọc)</div>
+        <p style="margin-top:14px;font-size:.9rem;opacity:.8;">Kéo thanh trượt để xem Eve chặn đọc một phần đường truyền — thay vì toàn bộ — sẽ ảnh hưởng QBER thế nào. Đây là phép tính lý thuyết, tách biệt với vòng lặp ngẫu nhiên ở mục Mô phỏng phía trên.</p>
+      </div>
+      <div>
+        <label style="font-family:var(--font-display);font-size:.8rem;display:flex;justify-content:space-between;">Tỷ lệ bị chặn đọc <span id="interceptLabel">0%</span></label>
+        <input type="range" id="interceptSlider" min="0" max="100" value="0" step="1">
+        <div class="qber-bar" style="margin-top:14px;"><div class="qber-thresh"></div><div class="qber-fill" id="analyticQberFill"></div></div>
+        <div class="verdict idle" id="analyticVerdict">0% bị chặn → QBER lý thuyết 0%, an toàn.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="image">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Ứng dụng khoá</div>
+      <h2>Một bit khoá sai, cả ảnh vỡ vụn</h2>
+      <p>XOR là phép tự nghịch đảo: mã hoá và giải mã dùng chung một thao tác. Nhưng chỉ cần khoá dùng để giải mã lệch khoá dùng để mã hoá dù chỉ vài bit, ảnh giải ra sẽ nhiễu loạn gần như hoàn toàn tại đúng những điểm ảnh liên quan — minh hoạ vì sao khoá phải khớp tuyệt đối, không thể &quot;gần đúng&quot;.</p>
+    </div>
+    <div class="xorcalc reveal">
+      <div class="row">
+        <div class="cell" style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <canvas id="xorOrig" width="64" height="64"></canvas>
+          <span style="font-family:var(--font-display);font-size:.68rem;opacity:.7;">Ảnh gốc</span>
+        </div>
+        <div style="font-family:var(--font-display);color:var(--accent);">→ XOR →</div>
+        <div class="cell" style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <canvas id="xorResult" width="64" height="64"></canvas>
+          <span style="font-family:var(--font-display);font-size:.68rem;opacity:.7;">Giải mã bằng khoá bị lệch</span>
+        </div>
+        <div class="xorcalc-controls">
+          <label style="font-family:var(--font-display);font-size:.8rem;display:flex;justify-content:space-between;">Số bit khoá bị sai (trên 64 bit) <span id="wrongBitsLabel">0</span></label>
+          <input type="range" id="wrongBitsSlider" min="0" max="64" value="0" step="1">
+          <p style="font-size:.82rem;opacity:.75;">Ở 0 bit sai, ảnh giải mã trùng khớp ảnh gốc tuyệt đối. Chỉ cần vài bit lệch, phần lớn khối ảnh liên quan đã sai hẳn.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="arch">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Kiến trúc thiết bị thật</div>
+      <h2>Hai trạm độc lập, một giao thức chung</h2>
+      <p>Mô phỏng phía trên chạy hoàn toàn trong trình duyệt. Thiết bị thật gồm hai máy tính, mỗi máy nối với một board ESP32 riêng, giao tiếp với nhau qua mạng LAN, chạy chung một codebase Python.</p>
+    </div>
+    <div class="arch reveal">
+      <div class="arch-grid">
+        <div class="arch-box">
+          <h4>Máy Hà — Alice (gửi)</h4>
+          <ul>
+            <li>Sinh chuỗi bit và basis ngẫu nhiên</li>
+            <li>Điều khiển servo qua ESP32 theo góc 0/45/90/135°</li>
+            <li>Thực hiện sifting, mã hoá ảnh gốc bằng XOR</li>
+            <li>Gửi dữ liệu qua TCP Socket</li>
+          </ul>
+        </div>
+        <div class="arch-box">
+          <h4>Máy Sơn — Bob (nhận)</h4>
+          <ul>
+            <li>Nhận dữ liệu qua TCP Socket</li>
+            <li>Đọc cảm biến LDR qua ESP32 của mình</li>
+            <li>Tính QBER, đối chiếu ngưỡng an toàn</li>
+            <li>Giải mã ảnh và hiển thị kết quả trên PyQt6</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="layers">
+        <div class="layer"><span class="lname">Giao diện</span><span class="lmods">src/gui — PyQt6, AliceView / BobView</span></div>
+        <div class="layer"><span class="lname">Luồng nền</span><span class="lmods">src/gui/workers — QThread: SerialWorker, NetworkWorker</span></div>
+        <div class="layer"><span class="lname">Logic lõi</span><span class="lmods">src/core — bb84_protocol, sifting, qber, image_cipher</span></div>
+        <div class="layer"><span class="lname">Mạng & phần cứng</span><span class="lmods">src/network, src/hardware — TCP socket, ESP32 Serial</span></div>
+      </div>
+
+      <table class="spec-table">
+        <tr><td>Baudrate Serial</td><td>115200</td></tr>
+        <tr><td>Cổng TCP</td><td>5050</td></tr>
+        <tr><td>Buffer nhận dữ liệu</td><td>4096 byte</td></tr>
+        <tr><td>Số bit khoá thô mỗi phiên</td><td>512 bit</td></tr>
+        <tr><td>Ngưỡng QBER an toàn</td><td>11%</td></tr>
+        <tr><td>Góc servo hợp lệ</td><td>0° / 45° / 90° / 135°</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="word"><b>Q</b>-SECURE</div>
+      <p>Sa bàn mô phỏng giao thức phân phối khóa lượng tử (QKD BB84) kết hợp cơ quang học, mạng TCP/IP và mã hóa ảnh XOR. Dùng ESP32, Servo và cảm biến LDR để số hóa góc phân cực thành bit logic, phần mềm PyQt6 tự động chạy thuật toán Sifting tạo khóa, tính tỷ lệ QBER phát hiện nghe lén và mã hóa/giải mã ma trận ảnh OpenCV thời gian thực.</p>
+    </div>
+    <div class="stack">
+      <span class="tag">Python</span><span class="tag">PyQt6</span><span class="tag">OpenCV</span><span class="tag">ESP32</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
