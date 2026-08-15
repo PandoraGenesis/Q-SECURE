@@ -75,6 +75,7 @@ Q-SECURE/
 │   ├── gui/              # giao diện PyQt6 + QThread workers
 │   └── utils/
 ├── web
+│   ├── favicon.svg
 │   ├── index.html
 │   ├── script.js
 │   ├── style.css
@@ -171,6 +172,7 @@ Q-SECURE/
 │   ├── gui/              # giao diện PyQt6 + QThread workers
 │   └── utils/
 ├── web
+│   ├── favicon.svg
 │   ├── index.html
 │   ├── script.js
 │   ├── style.css
