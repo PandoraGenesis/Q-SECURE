@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q-SECURE</title>
+<style>
+  :root{
+    --bg:#0A2240; --panel:#123A66; --line:#DCE8EA; --line-dim:rgba(220,232,234,.30);
+    --accent:#F5A623; --accent-dim:rgba(245,166,35,.16);
+    --font-display: ui-monospace,"Cascadia Code","Roboto Mono","SFMono-Regular",Consolas,monospace;
+    --font-body: -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:
+      linear-gradient(rgba(220,232,234,.13) 1px, transparent 1px) 0 0/44px 44px,
+      linear-gradient(90deg, rgba(220,232,234,.13) 1px, transparent 1px) 0 0/44px 44px,
+      var(--bg);
+    color:var(--line);font-family:var(--font-body);
+  }
+  .card{max-width:420px;width:100%;margin:24px;padding:32px;border:1px solid var(--line-dim);border-radius:8px;background:var(--panel);text-align:center;}
+  .word{font-family:var(--font-display);font-size:1.3rem;letter-spacing:.04em;margin-bottom:8px;}
+  .word b{color:var(--accent);}
+  p{font-size:.9rem;opacity:.75;margin:0 0 24px;}
+  .btns{display:flex;flex-direction:column;gap:10px;}
+  a.btn{
+    font-family:var(--font-display);font-size:.9rem;padding:14px 18px;min-height:44px;
+    border-radius:4px;border:1px solid var(--accent);background:var(--accent-dim);color:var(--accent);
+    text-decoration:none;display:flex;align-items:center;justify-content:center;
+  }
+  a.btn.secondary{border-color:var(--line-dim);background:transparent;color:var(--line);}
+  .note{margin-top:18px;font-size:.75rem;opacity:.55;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="word"><b>Q</b>-SECURE</div>
+    <p>Đang mở bản phù hợp với thiết bị của bạn...</p>
+    <div class="btns">
+      <a class="btn" href="./desktop/">Xem bản Desktop</a>
+      <a class="btn secondary" href="./mobile/">Xem bản Mobile</a>
+    </div>
+    <div class="note">Tự động chuyển sau 1 giây, hoặc bấm chọn ngay ở trên.</div>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+  // Nhan dien dien thoai qua ca 2 dau hieu: chieu rong man hinh VA user agent -
+  // dung ca hai de tranh nham lan voi may tinh bang / cua so trinh duyet thu nho.
+  var isNarrow = window.matchMedia("(max-width: 760px)").matches;
+  var isMobileUA = /Android|iPhone|iPod|Windows Phone/i.test(navigator.userAgent);
+  var target = (isNarrow && isMobileUA) ? "./mobile/" : "./desktop/";
+
+  setTimeout(function(){
+    window.location.replace(target);
+  }, 1000);
+})();
+</script>
+</body>
+</html>
