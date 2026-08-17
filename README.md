@@ -75,10 +75,17 @@ Q-SECURE/
 │   ├── gui/              # giao diện PyQt6 + QThread workers
 │   └── utils/
 ├── web
+<<<<<<< HEAD
 │   |  ├── favicon.svg
 │   |  ├── index.html
 │   |  ├── script.js
 │   |  ├── style.css
+=======
+│   ├── favicon.svg
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+>>>>>>> 2d609f0b768c2f82fb12c0289a4419104e8ed513
 ├── .gitignore
 ├── LICENSE
 ├── README.md
@@ -172,10 +179,18 @@ Q-SECURE/
 │   ├── gui/              # giao diện PyQt6 + QThread workers
 │   └── utils/
 ├── web
+<<<<<<< HEAD
 │   |  ├── favicon.svg
 │   |  ├── index.html
 │   |  ├── script.js
 │   |  ├── style.css
+=======
+├── web
+│   ├── favicon.svg
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+>>>>>>> 2d609f0b768c2f82fb12c0289a4419104e8ed513
 ├── .gitignore
 ├── LICENSE
 ├── README.md
