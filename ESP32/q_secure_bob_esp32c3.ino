@@ -1,62 +1,152 @@
 /*
   q_secure_bob_esp32c3.ino
   ==========================
-  Nap cho ESP32-C3 Super Mini gan voi MAY SON (Bob - tram nhan).
+  Nap cho ESP32-C3 Super Mini gan voi MAY SON (Bob - tram nhan) trong
+  du an KHKT Q-SECURE.
 
-  Chuc nang DUY NHAT cua board nay: lien tuc doc gia tri cam bien LDR
-  va gui ve may tinh qua Serial, dinh dang "LDR:<gia_tri>\n" (vi du
-  "LDR:512\n"), mo phong buoc "do photon" ben phia Bob. Board nay
-  KHONG dieu khien Servo - viec do la cua ESP32 gan voi may Ha (xem
-  file q_secure_alice_esp32c3.ino).
+  Khac voi ban truoc (chi doc LDR dinh ky, khong co Servo), board nay
+  gio dam nhan CA HAI nhiem vu: xoay Servo (dai dien cho kinh phan
+  tich/basis do cua Bob) VA doc cam bien LDR ngay sau khi xoay xong -
+  vi ve mat vat ly, ket qua do sang chi co y nghia SAU KHI kinh phan
+  tich da o dung goc.
+
+  Luong hoat dong khi nhan 1 lenh goc tu may tinh:
+    1. Nhan so nguyen goc (dinh dang thuan tuy "<goc>\n", vi du "90\n",
+       giong het giao thuc ben May Ha - khong co tien to chu).
+    2. Xoay Servo den dung goc do.
+    3. Dung lai cho 200ms de anh sang/co hoc on dinh (servo vua quay
+       xong con rung nhe, can thoi gian de LDR khong doc phai gia tri
+       nhieu do dao dong co hoc).
+    4. Doc gia tri LDR, gui ve may tinh dinh dang "LDR:<gia_tri>\n".
+
+  Board nay KHONG tu dong gui LDR dinh ky nhu ban truoc - chi gui
+  DUNG 1 lan sau moi lenh goc nhan duoc, dong vai tro vua la xac nhan
+  da xoay xong vua la ket qua do.
 
   Board: ESP32-C3 Super Mini
 
-  Ket noi phan cung (mach chia ap - voltage divider - giua LDR va 1
-  dien tro co dinh, vi du 10k):
-    - 3V3        -> mot dau LDR
-    - Dau con lai cua LDR -> GPIO1 (diem giua) -> mot dau dien tro 10k
-    - Dau con lai cua dien tro 10k -> GND
+  Ket noi phan cung:
+    - Servo, day tin hieu (thuong mau vang/cam) -> GPIO4
+    - Servo, day nguon (do)                      -> 5V (hoac 3V3 tuy loai servo)
+    - Servo, day mass (nau/den)                  -> GND
+    - LDR (mach chia ap voltage divider voi 1 dien tro co dinh, vi du 10k):
+        3V3 -> mot dau LDR -> diem giua (GPIO1) -> dien tro 10k -> GND
 
-  Cau hinh trong Arduino IDE (menu Tools) - QUAN TRONG voi board C3
+  Luu y ve chan: GPIO4 va GPIO1 deu KHONG phai chan strapping cua
+  ESP32-C3 (cac chan strapping can tranh la GPIO2/8/9), an toan de
+  dung cho Servo va ADC.
+
+  Cau hinh trong Arduino IDE (menu Tools) - BAT BUOC voi board C3
   Super Mini, khac voi ESP32 DevKit thuong:
     - Board: "ESP32C3 Dev Module"
     - USB CDC On Boot: "Enabled"
       (board nay dung cong USB gan lien ngay tren chip, KHONG co IC
-      chuyen doi USB-Serial rieng nhu CH340/CP2102. Neu de
-      "Disabled", Serial Monitor tren may tinh se khong nhan duoc gi
-      ca du code van chay dung.)
+      chuyen doi USB-Serial rieng nhu CH340/CP2102. Neu de "Disabled",
+      Serial Monitor tren may tinh se KHONG nhan duoc gi ca, du code
+      van bien dich va chay dung.)
 
-  Khong can cai them thu vien ngoai - chi dung ham analogRead() co san.
+  Thu vien can cai (Arduino IDE > Tools > Manage Libraries): "ESP32Servo".
 */
+
+#include <ESP32Servo.h>
 
 // ============================================================
 // 1. CAU HINH CHAN
 // ============================================================
-const int LDR_PIN = 1;   // GPIO1 - kenh ADC1_CH1, chan an toan tren
-                          // C3 Super Mini (khong phai chan strapping
-                          // GPIO2/8/9, khong trung chan USB 18/19)
+const int SERVO_PIN = 4;   // GPIO4 - tin hieu PWM dieu khien Servo (kinh phan tich)
+const int LDR_PIN = 1;      // GPIO1 - kenh ADC1_CH1, doc gia tri sang tu LDR
 
 // ============================================================
-// 2. CAU HINH THOI GIAN GUI DU LIEU
+// 2. THOI GIAN CHO ON DINH SAU KHI XOAY SERVO
 // ============================================================
-// Gui gia tri LDR ve may tinh moi 200ms. Dung millis() thay vi
-// delay() de vong lap loop() khong bi "dung hinh" - de sau nay neu
-// them lenh nhan tu may tinh (vd lenh doi chu ky gui) van doc kip
-// thoi, khong phai cho het delay() moi xu ly duoc lenh moi.
-const unsigned long LDR_SEND_INTERVAL_MS = 200;
-
-unsigned long lastLdrSendTime = 0;
+const unsigned long SETTLE_DELAY_MS = 200;
 
 // ============================================================
-// 3. GUI GIA TRI LDR DINH KY
+// 3. GOC HOP LE - PHAI khop VALID_SERVO_ANGLES ben phia Python va ben May Ha
 // ============================================================
-void sendLdrReadingIfDue() {
-  unsigned long now = millis();
-  if (now - lastLdrSendTime >= LDR_SEND_INTERVAL_MS) {
-    int ldrValue = analogRead(LDR_PIN);
-    Serial.print("LDR:");
-    Serial.println(ldrValue);
-    lastLdrSendTime = now;
+const int VALID_ANGLES[] = {0, 45, 90, 135};
+const int VALID_ANGLES_COUNT = 4;
+
+Servo myServo;
+String inputBuffer = "";   // gom ky tu Serial cho den khi gap '\n'
+
+// ============================================================
+// 4. KIEM TRA GOC CO HOP LE KHONG
+// ============================================================
+bool isValidAngle(int angle) {
+  for (int i = 0; i < VALID_ANGLES_COUNT; i++) {
+    if (VALID_ANGLES[i] == angle) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// ============================================================
+// 5. KIEM TRA CHUOI CO PHAI TOAN CHU SO KHONG
+//    (String::toInt() tra ve 0 ca khi chuoi khong phai so hop le,
+//    nen can kiem tra rieng de phan biet "0" that voi du lieu rac).
+// ============================================================
+bool isNumericString(const String &s) {
+  if (s.length() == 0) return false;
+  for (unsigned int i = 0; i < s.length(); i++) {
+    if (!isDigit(s.charAt(i))) return false;
+  }
+  return true;
+}
+
+// ============================================================
+// 6. XU LY 1 LENH GOC DA NHAN TRON VEN
+//    Xoay Servo -> cho on dinh -> doc LDR -> gui ket qua.
+// ============================================================
+void handleAngleCommand(String line) {
+  line.trim();
+
+  if (!isNumericString(line)) {
+    Serial.print("ERR:NOT_A_NUMBER:");
+    Serial.println(line);
+    return;
+  }
+
+  int angle = line.toInt();
+
+  if (!isValidAngle(angle)) {
+    Serial.print("ERR:INVALID_ANGLE:");
+    Serial.println(angle);
+    return;
+  }
+
+  myServo.write(angle);
+
+  // Dung dung 200ms truoc khi doc LDR - day la khoang cho co chu dich
+  // (gan voi thoi diem do), nen dung delay() truc tiep la hop ly va
+  // don gian nhat, khac voi vong lap nen can non-blocking o cho khac.
+  delay(SETTLE_DELAY_MS);
+
+  int ldrValue = analogRead(LDR_PIN);
+  Serial.print("LDR:");
+  Serial.println(ldrValue);
+}
+
+// ============================================================
+// 7. DOC SERIAL KHONG CHAN (non-blocking) - gom ky tu cho den '\n'
+// ============================================================
+void readSerialCommands() {
+  while (Serial.available() > 0) {
+    char c = Serial.read();
+
+    if (c == '\n') {
+      if (inputBuffer.length() > 0) {
+        handleAngleCommand(inputBuffer);
+      }
+      inputBuffer = "";  // xoa bo dem ngay sau khi xu ly, du lenh hop le hay loi
+    } else if (c != '\r') {
+      inputBuffer += c;
+
+      if (inputBuffer.length() > 32) {
+        inputBuffer = "";  // chong tran buffer neu nhan phai du lieu rac khong co '\n'
+      }
+    }
   }
 }
 
@@ -66,8 +156,13 @@ void sendLdrReadingIfDue() {
 void setup() {
   Serial.begin(115200);
   analogReadResolution(12);  // ESP32-C3: ADC 12-bit -> gia tri doc duoc trong khoang 0-4095
+
+  myServo.attach(SERVO_PIN);
+  myServo.write(0);  // vi tri mac dinh khi vua khoi dong
+
+  inputBuffer.reserve(32);
 }
 
 void loop() {
-  sendLdrReadingIfDue();
+  readSerialCommands();
 }
