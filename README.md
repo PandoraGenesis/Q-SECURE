@@ -111,7 +111,7 @@ Q-SECURE/
 
 - Clone repository về máy:
 ```bash
-    git clone https://github.com/username/Q-SECURE.git
+    git clone https://github.com/PandoraGenesis/Q-SECURE.git
     cd Q-SECURE
 ```
 
@@ -262,7 +262,7 @@ Q-SECURE/
 
 - Clone the repository:
 ```bash
-    git clone https://github.com/username/Q-SECURE.git
+    git clone https://github.com/PandoraGenesis/Q-SECURE.git
     cd Q-SECURE
 ```
 
