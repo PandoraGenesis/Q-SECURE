@@ -26,7 +26,7 @@
 
 ---
 
-### 🔬 Nguyên Lý Hoạt Động (Giao Thức BB84)
+## 🔬 Nguyên Lý Hoạt Động (Giao Thức BB84)
 
 Giao thức dựa trên việc hai bên (**Alice** và **Bob**) cùng thống nhất một khóa bí mật chung theo cách mà bất kỳ hành vi nghe lén nào cũng để lại dấu vết:
 
@@ -38,7 +38,7 @@ Giao thức dựa trên việc hai bên (**Alice** và **Bob**) cùng thống nh
 
 ---
 
-### 🖥️ Các Trạm Trong Hệ Thống
+## 🖥️ Các Trạm Trong Hệ Thống
 
 Hệ thống vận hành trên 2 máy tính độc lập trong cùng mạng LAN, nối với board ESP32 qua cổng USB:
 
@@ -49,7 +49,7 @@ Hệ thống vận hành trên 2 máy tính độc lập trong cùng mạng LAN,
 
 ---
 
-### ✨ Tính Năng Chính
+## ✨ Tính Năng Chính
 
 * **Sinh khóa ngẫu nhiên:** Khởi tạo chuỗi bit và basis ngẫu nhiên chuẩn bị cho quá trình trao đổi BB84.
 * **Điều khiển phần cứng:** Chuyển đổi basis thành góc quay servo trên ESP32 mô phỏng bước phân cực quang học.
@@ -60,7 +60,7 @@ Hệ thống vận hành trên 2 máy tính độc lập trong cùng mạng LAN,
 
 ---
 
-### 🛠️ Chi Tiết Kỹ Thuật
+## 🛠️ Chi Tiết Kỹ Thuật
 
 * **Serial Communication:** Tần số 115200 baud, truyền nhận dữ liệu qua hàng đợi an toàn thread-safe.
 * **Xử lý ngoại lệ:** Phân biệt rõ ràng lỗi mất kết nối cổng COM cứng với lỗi rớt mạng giữa chừng thông qua Custom Exception Hierarchy.
@@ -69,7 +69,7 @@ Hệ thống vận hành trên 2 máy tính độc lập trong cùng mạng LAN,
 
 ---
 
-### 📁 Cấu Trúc Thư Mục
+## 📁 Cấu Trúc Thư Mục
 
 ```text
 Q-SECURE/
@@ -111,7 +111,7 @@ Q-SECURE/
 
 ---
 
-### 🚀 Hướng Dẫn Cài Đặt & Vận Hành
+## 🚀 Hướng Dẫn Cài Đặt & Vận Hành
 
 #### 1. Cài Đặt Môi Trường
 
@@ -161,7 +161,7 @@ Q-SECURE/
     python -m src.main
 ```
 
-### 👥 Nhóm Thực Hiện
+## 👥 Nhóm Thực Hiện
 - Dự án do Bảo Châu & Anh Khoa thực hiện cho kỳ thi Khoa học Kỹ thuật:
    + Anh Khoa: phụ trách phần cơ khí và điện tử — chế tạo sa bàn vật lý, đấu nối các board ESP32, lắp servo và cảm biến LDR
    + Bảo Châu: phụ trách phần mềm và thuật toán — logic BB84, sifting, mã hóa, mạng và giao diện PyQt6.
@@ -170,7 +170,7 @@ Q-SECURE/
 
 - Trường: THPT Quốc Học Quy Nhơn
 
-### 📜 Giấy Phép
+## 📜 Giấy Phép
 Dự án được thực hiện phục vụ mục đích học tập và tham dự cuộc thi Khoa học Kỹ thuật, không nhằm mục đích thương mại. Phát hành theo giấy phép MIT, tùy theo quy định riêng của cuộc thi mà có thể điều chỉnh.
 
 ---
@@ -185,7 +185,7 @@ Dự án được thực hiện phục vụ mục đích học tập và tham d�
 
 ---
 
-### 🔬 Operating Principle (BB84 Protocol)
+## 🔬 Operating Principle (BB84 Protocol)
 
 The protocol relies on two parties (**Alice** and **Bob**) agreeing on a shared secret key in a way that any eavesdropping leaves a detectable trace:
 
@@ -197,7 +197,7 @@ The protocol relies on two parties (**Alice** and **Bob**) agreeing on a shared 
 
 ---
 
-### 🖥️ Stations in the System
+## 🖥️ Stations in the System
 
 The system runs on two independent computers on the same LAN, each connected to an ESP32 board via USB:
 
@@ -208,7 +208,7 @@ The system runs on two independent computers on the same LAN, each connected to 
 
 ---
 
-### ✨ Key Features
+## ✨ Key Features
 
 * **Random key generation:** Initializes random bit and basis strings in preparation for the BB84 exchange.
 * **Hardware control:** Converts basis choices into servo rotation angles on the ESP32, simulating an optical polarization step.
@@ -219,7 +219,7 @@ The system runs on two independent computers on the same LAN, each connected to 
 
 ---
 
-### 🛠️ Technical Details
+## 🛠️ Technical Details
 
 * **Serial Communication:** Baud rate 115200, with data sent/received through a thread-safe queue.
 * **Exception handling:** Clearly distinguishes hard COM-port disconnection errors from mid-session network drops using a custom exception hierarchy.
@@ -228,7 +228,7 @@ The system runs on two independent computers on the same LAN, each connected to 
 
 ---
 
-### 📁 Directory Structure
+## 📁 Directory Structure
 
 ```text
 Q-SECURE/
@@ -270,7 +270,7 @@ Q-SECURE/
 
 ---
 
-### 🚀 Installation & Operation Guide
+## 🚀 Installation & Operation Guide
 
 #### 1. Environment Setup
 
@@ -319,7 +319,7 @@ Q-SECURE/
     python -m src.main
 ```
 
-### 👥 Project Team
+## 👥 Project Team
 - Project carried out by Bảo Châu & Anh Khoa for the Science and Engineering Fair:
    + Anh Khoa: mechanical and electronics lead — built the physical demo model, wired the ESP32 boards, mounted the servos and LDR sensors
    + Bảo Châu: software and algorithms lead — BB84 logic, sifting, encryption, networking, and the PyQt6 interface.
@@ -328,5 +328,5 @@ Q-SECURE/
 
 - School: Quoc Hoc Quy Nhon High School
 
-### 📜 License
+## 📜 License
 This project was created for educational purposes and participation in the Science and Engineering Fair competition, not for commercial purposes. Released under the MIT license, subject to adjustment per the competition's own rules.
