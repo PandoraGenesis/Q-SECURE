@@ -305,9 +305,9 @@ Q-SECURE/
 ```
 
 ## 👥 Project Team
-- Project carried out by Bảo Châu & Anh Khoa for the Science and Engineering Fair:
+- Project carried out by Bao Chau & Anh Khoa for the Science and Engineering Fair:
    + Anh Khoa: mechanical and electronics lead — built the physical demo model, wired the ESP32 boards, mounted the servos and LDR sensors
-   + Bảo Châu: software and algorithms lead — BB84 logic, sifting, encryption, networking, and the PyQt6 interface.
+   + Bao Chau: software and algorithms lead — BB84 logic, sifting, encryption, networking, and the PyQt6 interface.
 
 - Supervising teacher: _(fill in name)_
 
