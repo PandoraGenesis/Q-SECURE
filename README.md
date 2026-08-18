@@ -121,8 +121,8 @@ Hermex/
 
 - Clone repository về máy:
 ```bash
-    git clone https://github.com/PandoraGenesis/Hermex.git
-    cd Hermex
+    git clone https://github.com/epic-qhqn/hermex.git
+    cd hermex
 ```
 
 - Tạo và kích hoạt môi trường ảo:
@@ -282,8 +282,8 @@ Hermex/
 
 - Clone the repository:
 ```bash
-    git clone https://github.com/PandoraGenesis/Hermex.git
-    cd Hermex
+    git clone https://github.com/epic-qhqn/hermex.git
+    cd hermex
 ```
 
 - Create and activate a virtual environment:
