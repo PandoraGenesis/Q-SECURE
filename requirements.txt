@@ -1,17 +1,25 @@
 # ==============================================================
 # Q-SECURE - requirements.txt
-# Da kiem tra tuong thich: Python 3.11 / 3.12, Windows 10/11
+# Da kiem tra tuong thich: Python 3.11 / 3.12 / 3.13 / 3.14, Windows 10/11
 # ==============================================================
 
 # --- Giao dien & Da luong ---
+# PyQt6 dung ABI on dinh (cp39-abi3) nen tu tuong thich moi ban Python
+# tu 3.9 tro len, khong can doi phien ban khi nang cap Python.
 PyQt6==6.9.1
 
 # --- Xu ly anh ---
-# Luu y: opencv-python da co ban 5.x, nhung day la ban major moi
-# (thay doi API/da tach module), it tai lieu/vi du con tuong thich.
-# Ban 4.12.x van la nhanh on dinh, duoc cong dong dung rong rai nhat.
-opencv-python==4.12.0.88
-numpy>=2.0,<2.3.0
+# QUAN TRONG: ban 4.12.0.88 (dung truoc day) CHUA co wheel dung san cho
+# Python 3.14 tren Windows, va tu rang buoc numpy<2.3.0 - ban numpy do
+# cung khong co wheel cho 3.14, nen pip roi vao build tu ma nguon va
+# that bai neu may khong cai san trinh bien dich C/C++.
+# Ban 5.0.0.93 dung ABI on dinh (cp37-abi3) va rang buoc numpy>=2
+# (khong gioi han tren) nen giai quyet dut diem van de nay.
+# Da kiem tra lai toan bo ham cv2 du an dang dung (imread, imwrite,
+# cvtColor, reshape/tobytes qua numpy) - tuong thich hoan toan, khong
+# can sua code image_crypto.py hay qsecure_app.py.
+opencv-python==5.0.0.93
+numpy>=2.3.2,<3.0
 
 # --- Giao tiep phan cung (ESP32) ---
 pyserial==3.5
