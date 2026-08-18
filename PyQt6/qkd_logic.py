@@ -1,7 +1,7 @@
 """
 qkd_logic.py
 ============
-Module xu ly logic cot loi cua giao thuc BB84 cho du an Q-SECURE:
+Module xu ly logic cot loi cua giao thuc BB84 cho du an Hermex:
 loc khoa (sifting) va tinh ty le loi bit luong tu (QBER).
 
 Module nay khong phu thuoc gi vao GUI, mang, hay phan cung - chi lam

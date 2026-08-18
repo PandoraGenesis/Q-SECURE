@@ -2,7 +2,7 @@
 test_pipeline.py
 =================
 Kich ban kiem thu TICH HOP TOAN BO pipeline phan mem cua du an
-Q-SECURE, chay tren dong lenh (CLI) - khong can giao dien PyQt6,
+Hermex, chay tren dong lenh (CLI) - khong can giao dien PyQt6,
 khong can phan cung ESP32 that. Xac nhan cac module da xay dung rieng
 le (qkd_logic.py, image_crypto.py) cung tang mang TCP Socket phoi hop
 DUNG voi nhau thanh mot pipeline hoan chinh: sinh bit/basis -> sifting
@@ -48,7 +48,7 @@ class StepReport:
 
     def print_report(self) -> bool:
         print("=" * 70)
-        print("  Q-SECURE — KIỂM THỬ TÍCH HỢP TOÀN BỘ PIPELINE")
+        print("  Hermex — KIỂM THỬ TÍCH HỢP TOÀN BỘ PIPELINE")
         print("=" * 70)
         print()
 
@@ -77,7 +77,7 @@ report = StepReport()
 
 # ============================================================
 # MO PHONG VAT LY: (basis, bit) <-> goc, va phep do luong tu - dung
-# chung logic da dung xuyen suot du an (trang web mo phong, qsecure_app.py).
+# chung logic da dung xuyen suot du an (trang web mo phong, hermex_app.py).
 # ============================================================
 def measure(sent_basis, sent_bit, measure_basis):
     """Do dung basis -> luon ra dung bit da gui; do sai basis -> ngau nhien 50/50."""

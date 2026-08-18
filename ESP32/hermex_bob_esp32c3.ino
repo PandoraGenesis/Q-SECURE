@@ -1,8 +1,8 @@
 /*
-  q_secure_bob_esp32c3.ino
+  hermex_bob_esp32c3.ino
   ==========================
   Nap cho ESP32-C3 Super Mini gan voi MAY SON (Bob - tram nhan) trong
-  du an KHKT Q-SECURE.
+  du an KHKT Hermex.
 
   Khac voi ban truoc (chi doc LDR dinh ky, khong co Servo), board nay
   gio dam nhan CA HAI nhiem vu: xoay Servo (dai dien cho kinh phan

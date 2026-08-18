@@ -1,7 +1,7 @@
 """
-qsecure_app.py
-===============
-Phan mem giao dien do hoa HOAN CHINH cho du an Q-SECURE, tich hop ca
+hermex_app.py
+==============
+Phan mem giao dien do hoa HOAN CHINH cho du an Hermex, tich hop ca
 4 module da xay dung rieng le truoc do:
     - esp32_serial.py  (SerialManager)   -> dieu khien Servo qua USB
     - qkd_logic.py     (sift_keys, calculate_qber) -> logic BB84
@@ -240,7 +240,7 @@ class SerialWorker(QThread):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Q-SECURE — Phần mềm điều khiển")
+        self.setWindowTitle("Hermex — Phần mềm điều khiển")
         self.resize(1040, 720)
 
         self.network_worker: NetworkWorker | None = None

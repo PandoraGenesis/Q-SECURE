@@ -1,5 +1,5 @@
 """
-config.py — File cau hinh TRUNG TAM cho du an Q-SECURE.
+config.py — File cau hinh TRUNG TAM cho du an Hermex.
 
 Ca hai may (Alice va Bob) dung CHUNG file nay tu 1 repo Git duy nhat.
 Cac gia tri rieng cho tung may (ROLE, COM_PORT, IP...) duoc GHI DE boi file `config_local.py` — file nay KHONG duoc dua len Git (xem
@@ -18,7 +18,7 @@ class Role(Enum):
 
 # Doc ROLE tu bien moi truong truoc, mac dinh ALICE neu chua cau hinh.
 # Se bi ghi de boi config_local.py neu file do dinh nghia DEVICE_ROLE.
-DEVICE_ROLE = Role(os.getenv("QSECURE_ROLE", "ALICE").upper())
+DEVICE_ROLE = Role(os.getenv("HERMEX_ROLE", "ALICE").upper())
 
 # ============================================================
 # 2. CAU HINH MANG (TCP SOCKET)

@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Q-SECURE — Build & Deploy Web
+name: Hermex — Build & Deploy Web
 on:
   # Runs on pushes targeting the default branch, only when files inside web/ change
   push:

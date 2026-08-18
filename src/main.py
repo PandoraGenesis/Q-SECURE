@@ -1,5 +1,5 @@
 """
-main.py — Diem khoi chay chinh cua Q-SECURE.
+main.py — Diem khoi chay chinh cua Hermex.
 
 Doc ROLE tu config (ALICE hoac BOB) roi khoi tao dung giao dien +
 worker tuong ung. Day la file DUY NHAT khac nhau ve luong chay giua
@@ -16,7 +16,7 @@ def main():
     app = QApplication(sys.argv)
 
     window = MainWindow(role=DEVICE_ROLE)
-    window.setWindowTitle(f"Q-SECURE - {DEVICE_ROLE.value}")
+    window.setWindowTitle(f"Hermex - {DEVICE_ROLE.value}")
     window.show()
 
     sys.exit(app.exec())

@@ -1,5 +1,5 @@
 # ==============================================================
-# Q-SECURE - requirements.txt
+# Hermex - requirements.txt
 # Da kiem tra tuong thich: Python 3.11 / 3.12 / 3.13 / 3.14, Windows 10/11
 # ==============================================================
 
@@ -17,7 +17,7 @@ PyQt6==6.9.1
 # (khong gioi han tren) nen giai quyet dut diem van de nay.
 # Da kiem tra lai toan bo ham cv2 du an dang dung (imread, imwrite,
 # cvtColor, reshape/tobytes qua numpy) - tuong thich hoan toan, khong
-# can sua code image_crypto.py hay qsecure_app.py.
+# can sua code image_crypto.py hay hermex_app.py.
 opencv-python==5.0.0.93
 numpy>=2.3.2,<3.0
 

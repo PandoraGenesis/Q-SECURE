@@ -3,7 +3,7 @@ constants.py — Hang so KHONG doi theo may (khac voi config.py la
 noi chua tham so CO the doi theo may/moi trung).
 """
 
-APP_NAME = "Q-SECURE"
+APP_NAME = "Hermex"
 APP_VERSION = "1.0.0"
 
 # Ma trang thai dung chung giua cac module

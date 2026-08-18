@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Q-SECURE — Nguyên lý hoạt động</title>
+<title>Hermex — Nguyên lý hoạt động</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script>
 // Chay som nhat co the (truoc khi CSS duoc ap dung) de gan class ngay tu
@@ -35,7 +35,7 @@
 
 <div class="topbar">
   <div class="topbar-inner wrap">
-    <div class="word"><b>Q</b>-SECURE</div>
+    <div class="word"><b>H</b>ermex</div>
     <nav class="topnav" id="topnav">
       <a href="#hero" data-sec="hero">Mở đầu</a>
       <a href="#intro" data-sec="intro">Giới thiệu</a>
@@ -66,7 +66,7 @@
     <div class="reveal">
       <div class="eyebrow">Hệ thống Quantum Key Distribution theo giao thức BB84</div>
       <h1><span class="h1-line">Một góc quay servo</span><br><span class="h1-line">giữ bí mật của một bit.</span></h1>
-      <p class="lead">Q-SECURE dựng lại nguyên lý phân phối khoá lượng tử theo giao thức BB84 bằng phần cứng thật: mỗi bit được mã hoá thành một trong bốn góc quay servo, truyền qua kênh quang mô phỏng, và được &quot;đọc&quot; lại bằng cảm biến LDR ở đầu nhận.</p>
+      <p class="lead">Hermex dựng lại nguyên lý phân phối khoá lượng tử theo giao thức BB84 bằng phần cứng thật: mỗi bit được mã hoá thành một trong bốn góc quay servo, truyền qua kênh quang mô phỏng, và được &quot;đọc&quot; lại bằng cảm biến LDR ở đầu nhận.</p>
       <div class="hero-tags">
         <span class="tag">BB84</span>
         <span class="tag">ESP32 + Servo + LDR</span>
@@ -129,12 +129,12 @@
       </div>
       <div class="card">
         <h3>Bốn góc, bốn trạng thái phân cực</h3>
-        <p>Trong BB84 nguyên bản, hai basis được dùng là basis ngang/dọc (0°/90°) và basis chéo (45°/135°) — bốn hướng phân cực cụ thể mà một nguồn sáng phân cực tuyến tính có thể tạo ra. Đây chính là lý do Q-SECURE chọn đúng bốn góc servo 0°/45°/90°/135°: không phải con số tuỳ ý, mà là ánh xạ trực tiếp từ bốn trạng thái phân cực mà giao thức BB84 gốc sử dụng.</p>
+        <p>Trong BB84 nguyên bản, hai basis được dùng là basis ngang/dọc (0°/90°) và basis chéo (45°/135°) — bốn hướng phân cực cụ thể mà một nguồn sáng phân cực tuyến tính có thể tạo ra. Đây chính là lý do Hermex chọn đúng bốn góc servo 0°/45°/90°/135°: không phải con số tuỳ ý, mà là ánh xạ trực tiếp từ bốn trạng thái phân cực mà giao thức BB84 gốc sử dụng.</p>
       </div>
     </div>
 
     <div class="model-figure reveal">
-      <svg viewBox="0 0 680 246" width="100%" role="img" aria-label="Sơ đồ mô hình vật lý Q-SECURE: trạm Alice với servo và trạm Bob với cảm biến LDR, nối qua kênh quang và kênh mạng TCP">
+      <svg viewBox="0 0 680 246" width="100%" role="img" aria-label="Sơ đồ mô hình vật lý Hermex: trạm Alice với servo và trạm Bob với cảm biến LDR, nối qua kênh quang và kênh mạng TCP">
         <defs>
           <marker id="introArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M2 1L8 5L2 9" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -186,7 +186,7 @@
         <text x="560" y="204" text-anchor="middle" font-family="var(--font-display)" font-size="12" fill="var(--accent)">Máy Sơn — Bob</text>
         <text x="560" y="222" text-anchor="middle" font-family="var(--font-display)" font-size="10" fill="var(--line)" opacity="0.7">Đo cường độ qua LDR</text>
       </svg>
-      <p class="figure-caption">Mô hình vật lý Q-SECURE: servo bên trạm Alice mã hoá góc phân cực, cảm biến LDR bên trạm Bob đọc lại tín hiệu qua kênh quang mô phỏng — song song với kênh mạng TCP giữa hai máy tính điều khiển.</p>
+      <p class="figure-caption">Mô hình vật lý Hermex: servo bên trạm Alice mã hoá góc phân cực, cảm biến LDR bên trạm Bob đọc lại tín hiệu qua kênh quang mô phỏng — song song với kênh mạng TCP giữa hai máy tính điều khiển.</p>
     </div>
   </div>
 </section>
@@ -232,11 +232,11 @@
     <div class="section-head reveal">
       <div class="eyebrow">Mô hình hoá</div>
       <h2>Từ photon lượng tử đến servo và LDR</h2>
-      <p>Photon đơn lẻ rất khó tạo và đo bằng thiết bị phổ thông. Q-SECURE thay thế bằng một mô hình cơ – điện tái hiện đúng logic toán học của phép đo lệch basis, dùng linh kiện có thể lắp ráp và trình diễn trực tiếp.</p>
+      <p>Photon đơn lẻ rất khó tạo và đo bằng thiết bị phổ thông. Hermex thay thế bằng một mô hình cơ – điện tái hiện đúng logic toán học của phép đo lệch basis, dùng linh kiện có thể lắp ráp và trình diễn trực tiếp.</p>
     </div>
     <div class="maptable-wrap reveal">
       <table class="maptable">
-        <thead><tr><th>Khái niệm trong BB84 thật</th><th>Q-SECURE tái hiện bằng</th></tr></thead>
+        <thead><tr><th>Khái niệm trong BB84 thật</th><th>Hermex tái hiện bằng</th></tr></thead>
         <tbody>
           <tr><td class="real">Photon đơn lẻ</td><td class="model">Xung tín hiệu từ nguồn sáng thường</td></tr>
           <tr><td class="real">Hướng phân cực photon</td><td class="model">Góc quay servo (0° / 45° / 90° / 135°)</td></tr>
@@ -467,7 +467,7 @@
 <footer>
   <div class="wrap foot-grid">
     <div>
-      <div class="word"><b>Q</b>-SECURE</div>
+      <div class="word"><b>H</b>ermex</div>
       <p>Sa bàn mô phỏng giao thức phân phối khóa lượng tử (QKD BB84) kết hợp cơ quang học, mạng TCP/IP và mã hóa ảnh XOR. Dùng ESP32, Servo và cảm biến LDR để số hóa góc phân cực thành bit logic, phần mềm PyQt6 tự động chạy thuật toán Sifting tạo khóa, tính tỷ lệ QBER phát hiện nghe lén và mã hóa/giải mã ma trận ảnh OpenCV thời gian thực.</p>
     </div>
     <div class="stack">

@@ -1,6 +1,6 @@
 <div align="center">
 
-# Q-SECURE
+# Hermex
 
 **Simulation testbed for a Quantum Key Distribution system.**  
 *Sa bàn mô phỏng hệ thống Quantum Key Distribution theo giao thức BB84.*
@@ -20,7 +20,7 @@
 
 ## 📌 Giới Thiệu Dự Án
 
-**Q-SECURE** là một sa bàn quy mô nhỏ, được chế tạo để trình diễn cách một hệ thống **Quantum Key Distribution (QKD)** dựa trên giao thức **BB84** hoạt động trong thực tế. Dự án kết hợp đường truyền quang học mô phỏng với pipeline mã hóa ảnh thực tế, giúp ý tưởng truyền thông lượng tử trở nên trực quan và quan sát được trực tiếp trên hai trạm vật lý.
+**Hermex** là một sa bàn quy mô nhỏ, được chế tạo để trình diễn cách một hệ thống **Quantum Key Distribution (QKD)** dựa trên giao thức **BB84** hoạt động trong thực tế. Dự án kết hợp đường truyền quang học mô phỏng với pipeline mã hóa ảnh thực tế, giúp ý tưởng truyền thông lượng tử trở nên trực quan và quan sát được trực tiếp trên hai trạm vật lý.
 
 > 🏆 Dự án này tham dự cuộc thi **Khoa học Kỹ thuật**.
 
@@ -67,12 +67,12 @@ Hệ thống vận hành trên 2 máy tính độc lập trong cùng mạng LAN,
 ## 📁 Cấu Trúc Thư Mục
 
 ```text
-Q-SECURE/
+Hermex/
 ├── .github/workflows/              # Cấu hình tự động hóa GitHub Actions
 ├── ESP32/                          # Mã nguồn C/C++ cho board ESP32
-│   ├── q_secure_alice_esp32c3.ino  
-│   ├── q_secure_bob_esp32c3.ino    
-│   └── q_secure_esp32.ino          
+│   ├── hermex_alice_esp32c3.ino  
+│   ├── hermex_bob_esp32c3.ino    
+│   └── hermex_esp32.ino          
 ├── PyQt6/                          # Giao diện đồ họa PyQt6 & Logic ứng dụng
 │   ├── src/                        # Thư mục chứa mã nguồn chính của phần giao diện PyQt6
 │   │   ├── core/                   
@@ -82,7 +82,7 @@ Q-SECURE/
 │   ├── esp32_serial.py             
 │   ├── image_crypto.py             
 │   ├── qkd_logic.py                
-│   └── qsecure_app.py              # Điểm khởi chạy của giao diện
+│   └── hermex_app.py               # Điểm khởi chạy của giao diện
 ├── QThread                         # Thư mục chứa các luồng chạy ngầm độc lập
 │   ├── serial_worker.py            
 │   └── socket_worker.py            
@@ -103,7 +103,7 @@ Q-SECURE/
 │   ├── index.html                  
 │   ├── script.js                   
 │   └── style.css                   
-├── .gitgnore                       # Cấu hình bỏ qua tệp tin khi đẩy lên Git
+├── .gitignore                      # Cấu hình bỏ qua tệp tin khi đẩy lên Git
 ├── LICENSE                         
 ├── README.md                       
 ├── config.py                       # Tệp cấu hình tập trung cho toàn bộ thông số tĩnh
@@ -121,8 +121,8 @@ Q-SECURE/
 
 - Clone repository về máy:
 ```bash
-    git clone https://github.com/PandoraGenesis/Q-SECURE.git
-    cd Q-SECURE
+    git clone https://github.com/PandoraGenesis/Hermex.git
+    cd Hermex
 ```
 
 - Tạo và kích hoạt môi trường ảo:
@@ -141,7 +141,7 @@ Q-SECURE/
 
 ```bash
     cd PyQt6
-    python qsecure_app.py
+    python hermex_app.py
 ```
 
 - **Trạm Alice (Gửi):** Chọn vai trò `Alice (Máy Hà — gửi)`, chọn cổng COM kết nối ESP32 (hoặc `Không dùng phần cứng`), chọn ảnh gốc và nhấn **Bắt đầu truyền tin**.
@@ -181,7 +181,7 @@ Dự án được thực hiện phục vụ mục đích học tập và tham d�
 
 ## 📌 Project Introduction
 
-**Q-SECURE** is a small-scale demo model built to demonstrate how a **Quantum Key Distribution (QKD)** system based on the **BB84** protocol works in practice. The project combines a simulated optical link with a real image-encryption pipeline, making the idea of quantum communication intuitive and directly observable across two physical stations.
+**Hermex** is a small-scale demo model built to demonstrate how a **Quantum Key Distribution (QKD)** system based on the **BB84** protocol works in practice. The project combines a simulated optical link with a real image-encryption pipeline, making the idea of quantum communication intuitive and directly observable across two physical stations.
 
 > 🏆 This project submitted for the **Science and Engineering Fair** competition.
 
@@ -228,12 +228,12 @@ The system runs on two independent computers on the same LAN, each connected to 
 ## 📁 Directory Structure
 
 ```text
-Q-SECURE/
+Hermex/
 ├── .github/workflows/              # GitHub Actions automation configuration
 ├── ESP32/                          # C/C++ source code for ESP32 boards
-│   ├── q_secure_alice_esp32c3.ino  
-│   ├── q_secure_bob_esp32c3.ino    
-│   └── q_secure_esp32.ino          
+│   ├── hermex_alice_esp32c3.ino  
+│   ├── hermex_bob_esp32c3.ino    
+│   └── hermex_esp32.ino          
 ├── PyQt6/                          # PyQt6 graphical interface & application logic
 │   ├── src/                        # Directory containing the main PyQt6 interface source code
 │   │   ├── core/                   
@@ -243,7 +243,7 @@ Q-SECURE/
 │   ├── esp32_serial.py             
 │   ├── image_crypto.py             
 │   ├── qkd_logic.py                
-│   └── qsecure_app.py              # Interface entry point
+│   └── hermex_app.py               # Interface entry point
 ├── QThread                         # Directory containing independent background threads
 │   ├── serial_worker.py            
 │   └── socket_worker.py            
@@ -282,8 +282,8 @@ Q-SECURE/
 
 - Clone the repository:
 ```bash
-    git clone https://github.com/PandoraGenesis/Q-SECURE.git
-    cd Q-SECURE
+    git clone https://github.com/PandoraGenesis/Hermex.git
+    cd Hermex
 ```
 
 - Create and activate a virtual environment:
@@ -302,7 +302,7 @@ Q-SECURE/
 
 ```bash
     cd PyQt6
-    python qsecure_app.py
+    python hermex_app.py
 ```
 
 - **Alice Station (Sender):** Select the role `Alice (Hà's Machine — sender)`, choose the COM port connected to the ESP32 (or `No hardware`), select the original image, and click **Start Transmission**.

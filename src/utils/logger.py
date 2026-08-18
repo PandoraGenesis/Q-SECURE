@@ -23,7 +23,7 @@ def get_logger(name: str) -> logging.Logger:
         logger.addHandler(console_handler)
 
         file_handler = logging.FileHandler(
-            os.path.join(PATHS["LOG_DIR"], "qsecure.log"), encoding="utf-8"
+            os.path.join(PATHS["LOG_DIR"], "hermex.log"), encoding="utf-8"
         )
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)

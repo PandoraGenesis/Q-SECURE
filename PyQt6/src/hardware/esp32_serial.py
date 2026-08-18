@@ -1,7 +1,7 @@
 """
 esp32_serial.py
 ================
-Module GIAO TIẾP PHẦN CỨNG cho dự án Q-SECURE. Dùng chung cho cả hai
+Module GIAO TIẾP PHẦN CỨNG cho dự án Hermex. Dùng chung cho cả hai
 máy: bên Alice để gửi lệnh Servo, bên Bob để lắng nghe dữ liệu LDR —
 class SerialManager không tự biết vai trò, vai trò do code gọi nó
 (vd SerialWorker) quyết định sẽ gọi send_servo_angle() hay chỉ đọc
@@ -55,7 +55,7 @@ from config import SERIAL_CONFIG
 from src.utils.logger import get_logger
 
 # Dung chung 1 logger duoc cau hinh boi utils/logger.py (ghi ra ca
-# console lan file logs/qsecure.log) thay vi tu goi logging.basicConfig
+# console lan file logs/hermex.log) thay vi tu goi logging.basicConfig
 # rieng - tranh xung dot cau hinh logging khi module nay duoc import
 # tu ben trong ung dung GUI chinh.
 logger = get_logger("hardware.esp32_serial")

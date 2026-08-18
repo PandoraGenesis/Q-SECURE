@@ -14,7 +14,7 @@ class AliceView(QWidget):
         super().__init__(parent)
 
         layout = QVBoxLayout(self)
-        layout.addWidget(QLabel("Q-SECURE - Alice (May gui)"))
+        layout.addWidget(QLabel("Hermex - Alice (May gui)"))
         layout.addWidget(ImagePreview())
 
         # Hien thi truc quan goc Servo/basis dang gui di - moi lan

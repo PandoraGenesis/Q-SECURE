@@ -1,7 +1,7 @@
 /*
-  q_secure_esp32.ino
+  hermex_esp32.ino
   ===================
-  Sketch nap cho ESP32 trong du an Q-SECURE.
+  Sketch nap cho ESP32 trong du an Hermex.
 
   Chuc nang:
     - Nhan lenh goc quay Servo tu may tinh qua Serial, dinh dang:

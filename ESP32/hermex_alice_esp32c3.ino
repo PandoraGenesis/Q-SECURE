@@ -1,8 +1,8 @@
 /*
-  q_secure_alice_esp32c3.ino
+  hermex_alice_esp32c3.ino
   ===========================
   Nap cho ESP32-C3 Super Mini gan voi MAY HA (Alice - tram gui) trong
-  du an KHKT Q-SECURE.
+  du an KHKT Hermex.
 
   Chuc nang: nhan mot con so nguyen tuong trung cho goc quay Servo tu
   may tinh qua Serial USB (dinh dang thuan tuy "<goc>\n", vi du "90\n"

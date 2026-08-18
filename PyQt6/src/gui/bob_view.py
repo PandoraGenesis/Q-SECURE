@@ -14,7 +14,7 @@ class BobView(QWidget):
         super().__init__(parent)
 
         layout = QVBoxLayout(self)
-        layout.addWidget(QLabel("Q-SECURE - Bob (May nhan)"))
+        layout.addWidget(QLabel("Hermex - Bob (May nhan)"))
 
         self.qber_label = QLabel("QBER: --")
         layout.addWidget(self.qber_label)

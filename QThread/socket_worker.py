@@ -14,7 +14,7 @@ voi 1 lan recv() ben nhan).
 
 Ho tro ca 2 vai tro qua tham so `mode`:
     - mode="server": mo cong, lang nghe, cho 1 ket noi den (dung cho
-      tram Alice - ben gui - trong kien truc Q-SECURE).
+      tram Alice - ben gui - trong kien truc Hermex).
     - mode="client": chu dong ket noi toi dia chi cho san (dung cho
       tram Bob - ben nhan).
 """

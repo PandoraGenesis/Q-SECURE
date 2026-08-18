@@ -5,7 +5,7 @@ Kich ban DOC LAP de kiem tra hai laptop co ket noi mang duoc voi nhau
 qua TCP Socket hay khong, khi cung bat chung mot mang Wi-Fi Hotspot
 di dong - chay tren MAY SON.
 
-Day CHI la cong cu kiem thu/chan doan truoc khi chay ung dung Q-SECURE
+Day CHI la cong cu kiem thu/chan doan truoc khi chay ung dung Hermex
 that, KHONG lien quan va KHONG thay the cho src/network/tcp_client.py
 trong du an chinh.
 
