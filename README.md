@@ -29,10 +29,10 @@
 
 Giao thức dựa trên việc hai bên (**Alice** và **Bob**) cùng thống nhất một khóa bí mật chung theo cách mà bất kỳ hành vi nghe lén nào cũng để lại dấu vết:
 
-1. **Truyền tín hiệu:** Alice sinh ngẫu nhiên chuỗi bit và chuỗi cơ sở (basis), truyền từng bit dưới dạng mã hóa lên photon mô phỏng. Board ESP32 tại trạm Alice chuyển lựa chọn basis thành góc quay động cơ servo.
-2. **Thu nhận tín hiệu:** ESP32 tại trạm Bob đọc giá trị từ cảm biến LDR (đóng vai trò bộ thu photon).
+1. **Truyền tín hiệu:** Alice sinh ngẫu nhiên chuỗi bit và chuỗi cơ sở (basis), truyền từng bit dưới dạng mã hóa lên photon mô phỏng. Board ESP32 tại trạm Alice chuyển lựa chọn basis thành góc quay của động cơ servo.
+2. **Thu nhận tín hiệu:** ESP32 tại trạm Bob đọc giá trị từ cảm biến LDR (đóng vai trò là bộ thu photon).
 3. **Thương lượng cơ sở (Sifting):** Hai trạm công khai so sánh basis đã dùng (không so sánh giá trị bit) và chỉ giữ lại các bit có cùng basis.
-4. **Kiểm tra an toàn (QBER):** So sánh công khai một phần nhỏ khóa đã sift để tính tỷ lệ lỗi $QBER$. Nếu $QBER > 11\%$, kênh truyền bị coi là bị xâm phạm và khóa sẽ bị hủy.
+4. **Kiểm tra an toàn (QBER):** So sánh công khai một phần nhỏ của khóa đã sift để tính tỷ lệ lỗi $QBER$. Nếu $QBER > 11\%$, kênh truyền bị coi là bị xâm phạm và khóa sẽ bị hủy.
 5. **Mã hóa dữ liệu:** Phần khóa an toàn còn lại làm keystream để mã hóa XOR một tấm ảnh thực tế.
 
 
@@ -68,40 +68,50 @@ Hệ thống vận hành trên 2 máy tính độc lập trong cùng mạng LAN,
 
 ```text
 Q-SECURE/
-├── .github/workflows/      # GitHub Actions / Static workflows
-├── ESP32/                  # Mã nguồn C/C++ cho board ESP32
-│   ├── q_secure_alice_esp32c3.ino
-│   ├── q_secure_bob_esp32c3.ino
-│   └── q_secure_esp32.ino
-├── PyQt6/                  # Giao diện đồ họa PyQt6 & Logic ứng dụng
-│   ├── src/
-│   │   ├── core/           # Thuật toán BB84, Sifting, QBER, Mã hóa XOR
-│   │   ├── gui/            # Giao diện chính, Widgets, QThread Workers
-│   │   ├── hardware/       # Quản lý kết nối Serial ESP32
-│   │   └── network/        # Quản lý kết nối TCP Client/Server
-│   ├── esp32_serial.py     # Module quản lý giao tiếp Serial giữa ứng dụng PyQt6 và vi điều khiển ESP32
-│   ├── image_crypto.py     # Module xử lý mã hóa và giải mã dữ liệu hình ảnh bằng thuật toán XOR
-│   ├── qkd_logic.py        # Module thực thi thuật toán và logic lõi của giao thức BB84 (QKD)
-│   └── qsecure_app.py      # Entry point khởi chạy GUI
-├── src/
-│   ├── main.py
-│   ├── core/               # BB84, sifting, QBER, mã hóa ảnh
-│   ├── network/            # TCP client/server
-│   ├── hardware/           # Giao tiếp Serial với ESP32
-│   ├── gui/                # Giao diện PyQt6 + QThread workers
-│   └── utils/
-├── web/                    # Giao diện web mô phỏng / báo cáo trực tuyến (GitHub Pages)
-│   ├── favicon.svg         # Biểu tượng biểu trưng (Icon) hiển thị trên thẻ trình duyệt
-│   ├── index.html          # Cấu trúc khung nội dung HTML chính của trang web
-│   ├── script.js           # Logic xử lý tương tác, dữ liệu và hiệu ứng giao diện (JavaScript)
-│   └── style.css           # Định dạng kiểu dáng, màu sắc và bố cục giao diện (CSS)
-├── assets/                 # Biểu tượng semaphore & ảnh mẫu
-├── logs/                   # Nhật ký hoạt động hệ thống
-├── config.py
-├── config_local.example.py
-├── src/
-├── requirements.txt        # Danh sách thư viện phụ thuộc
-└── run.bat                 # Script khởi chạy nhanh trên Windows
+├── .github/workflows/              # Cấu hình tự động hóa GitHub Actions
+├── ESP32/                          # Mã nguồn C/C++ cho board ESP32
+│   ├── q_secure_alice_esp32c3.ino  
+│   ├── q_secure_bob_esp32c3.ino    
+│   └── q_secure_esp32.ino          
+├── PyQt6/                          # Giao diện đồ họa PyQt6 & Logic ứng dụng
+│   ├── src/                        # Thư mục chứa mã nguồn chính của phần giao diện PyQt6
+│   │   ├── core/                   
+│   │   ├── gui/                    
+│   │   ├── hardware/               
+│   │   └── network/                
+│   ├── esp32_serial.py             
+│   ├── image_crypto.py             
+│   ├── qkd_logic.py                
+│   └── qsecure_app.py              # Điểm khởi chạy của giao diện
+├── QThread                         # Thư mục chứa các luồng chạy ngầm độc lập
+│   ├── serial_worker.py            
+│   └── socket_worker.py            
+├── TCP                             # Thư mục chứa các kịch bản kiểm thử kết nối mạng
+│   ├── tcp_client.py               
+│   └── tcp_server.py               
+├── assets/                         # Biểu tượng semaphore & ảnh mẫu
+├── logs/                           # Nhật ký hoạt động hệ thống
+├── src/                            # Thư mục mã nguồn chính chuẩn hóa của toàn bộ dự án
+│   ├── main.py                     
+│   ├── core/                      
+│   ├── network/                   
+│   ├── hardware/                   
+│   ├── gui/                        
+│   └── utils/                     
+├── web/                            # Giao diện web mô phỏng
+│   ├── favicon.svg                
+│   ├── index.html                  
+│   ├── script.js                   
+│   └── style.css                   
+├── .gitgnore                       # Cấu hình bỏ qua tệp tin khi đẩy lên Git
+├── LICENSE                         
+├── README.md                       
+├── config.py                       # Tệp cấu hình tập trung cho toàn bộ thông số tĩnh
+├── config_local.example.py         # Tệp mẫu để sao chép thành cấu hình mạng/cổng COM cục bộ
+├── ldr_calibration.py              # Kịch bản thực thi hiệu chuẩn cảm biến ánh sáng LDR
+├── requirements.txt                
+├── run.bat                         
+└── test_pipeline.py                # Kịch bản kiểm thử tích hợp hệ thống
 ```
 
 
@@ -219,40 +229,50 @@ The system runs on two independent computers on the same LAN, each connected to 
 
 ```text
 Q-SECURE/
-├── .github/workflows/      # GitHub Actions / Static workflows
-├── ESP32/                  # C/C++ source code for the ESP32 board
-│   ├── q_secure_alice_esp32c3.ino
-│   ├── q_secure_bob_esp32c3.ino
-│   └── q_secure_esp32.ino
-├── PyQt6/                  # PyQt6 GUI & application logic
-│   ├── src/
-│   │   ├── core/           # BB84 algorithm, Sifting, QBER, XOR encryption
-│   │   ├── gui/            # Main interface, widgets, QThread workers
-│   │   ├── hardware/       # ESP32 serial connection management
-│   │   └── network/        # TCP client/server connection management
-│   ├── esp32_serial.py     # Module managing serial communication between the PyQt6 app and the ESP32 microcontroller
-│   ├── image_crypto.py     # Module handling image encryption/decryption via the XOR algorithm
-│   ├── qkd_logic.py        # Module implementing the core BB84 (QKD) protocol algorithm and logic
-│   └── qsecure_app.py      # GUI entry point
-├── src/
-│   ├── main.py
-│   ├── core/               # BB84, sifting, QBER, image encryption
-│   ├── network/            # TCP client/server
-│   ├── hardware/           # Serial communication with ESP32
-│   ├── gui/                # PyQt6 interface + QThread workers
-│   └── utils/
-├── web/                    # Simulation / online report web interface (GitHub Pages)
-│   ├── favicon.svg         # Site icon shown in the browser tab
-│   ├── index.html          # Main HTML content structure of the site
-│   ├── script.js           # Interaction, data, and UI-effect logic (JavaScript)
-│   └── style.css           # Styling, colors, and layout (CSS)
-├── assets/                 # Semaphore icons & sample images
-├── logs/                   # System activity logs
-├── config.py
-├── config_local.example.py
-├── src/
-├── requirements.txt        # List of dependencies
-└── run.bat                 # Quick-start script for Windows
+├── .github/workflows/              # GitHub Actions automation configuration
+├── ESP32/                          # C/C++ source code for ESP32 boards
+│   ├── q_secure_alice_esp32c3.ino  
+│   ├── q_secure_bob_esp32c3.ino    
+│   └── q_secure_esp32.ino          
+├── PyQt6/                          # PyQt6 graphical interface & application logic
+│   ├── src/                        # Directory containing the main PyQt6 interface source code
+│   │   ├── core/                   
+│   │   ├── gui/                    
+│   │   ├── hardware/               
+│   │   └── network/                
+│   ├── esp32_serial.py             
+│   ├── image_crypto.py             
+│   ├── qkd_logic.py                
+│   └── qsecure_app.py              # Interface entry point
+├── QThread                         # Directory containing independent background threads
+│   ├── serial_worker.py            
+│   └── socket_worker.py            
+├── TCP                             # Directory containing network connection testing scripts
+│   ├── tcp_client.py               
+│   └── tcp_server.py               
+├── assets/                         # Semaphore icons & sample images
+├── logs/                           # System operation logs
+├── src/                            # Standardized main source code directory for the entire project
+│   ├── main.py                     
+│   ├── core/                       
+│   ├── network/                    
+│   ├── hardware/                   
+│   ├── gui/                        
+│   └── utils/                      
+├── web/                            # Web interface simulation
+│   ├── favicon.svg                 
+│   ├── index.html                  
+│   ├── script.js                   
+│   └── style.css                   
+├── .gitignore                      # Configuration to ignore files when pushing to Git
+├── LICENSE                         
+├── README.md                       
+├── config.py                       # Centralized configuration file for all static parameters
+├── config_local.example.py         # Template file to copy for local network/COM port configurations
+├── ldr_calibration.py              # Script executing LDR light sensor calibration
+├── requirements.txt                
+├── run.bat                         
+└── test_pipeline.py                # System integration testing script
 ```
 
 
