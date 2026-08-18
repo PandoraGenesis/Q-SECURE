@@ -24,7 +24,6 @@
 
 > 🏆 Dự án này tham dự cuộc thi **Khoa học Kỹ thuật**.
 
----
 
 ## 🔬 Nguyên Lý Hoạt Động (Giao Thức BB84)
 
@@ -36,7 +35,6 @@ Giao thức dựa trên việc hai bên (**Alice** và **Bob**) cùng thống nh
 4. **Kiểm tra an toàn (QBER):** So sánh công khai một phần nhỏ khóa đã sift để tính tỷ lệ lỗi $QBER$. Nếu $QBER > 11\%$, kênh truyền bị coi là bị xâm phạm và khóa sẽ bị hủy.
 5. **Mã hóa dữ liệu:** Phần khóa an toàn còn lại làm keystream để mã hóa XOR một tấm ảnh thực tế.
 
----
 
 ## 🖥️ Các Trạm Trong Hệ Thống
 
@@ -47,7 +45,6 @@ Hệ thống vận hành trên 2 máy tính độc lập trong cùng mạng LAN,
 | **Máy Hà** | **Alice** (gửi) | Sinh chuỗi bit/basis, điều khiển servo qua ESP32, thực hiện sifting, mã hóa ảnh gốc và gửi qua TCP socket. |
 | **Máy Sơn** | **Bob** (nhận) | Lắng nghe TCP connection, đọc cảm biến LDR qua ESP32, tính $QBER$, giải mã ảnh và hiển thị kết quả. |
 
----
 
 ## ✨ Tính Năng Chính
 
@@ -58,7 +55,6 @@ Hệ thống vận hành trên 2 máy tính độc lập trong cùng mạng LAN,
 * **Mã hóa ảnh XOR:** Mã hóa/giải mã ảnh thời gian thực bằng khóa lượng tử thu được.
 * **Truyền dữ liệu mạng:** Di chuyển ảnh đã mã hóa cùng metadata giữa hai trạm qua TCP Socket.
 
----
 
 ## 🛠️ Chi Tiết Kỹ Thuật
 
@@ -67,7 +63,6 @@ Hệ thống vận hành trên 2 máy tính độc lập trong cùng mạng LAN,
 * **Lọc nhiễu dữ liệu:** Tự động bắt và loại bỏ các dòng dữ liệu nhiễu/lỗi định dạng từ ESP32 mà không làm dừng chương trình.
 * **Kiến trúc đồng nhất:** Hai trạm dùng chung codebase, cấu hình linh hoạt qua file `config_local.py`.
 
----
 
 ## 📁 Cấu Trúc Thư Mục
 
@@ -109,7 +104,6 @@ Q-SECURE/
 └── run.bat                 # Script khởi chạy nhanh trên Windows
 ```
 
----
 
 ## 🚀 Hướng Dẫn Cài Đặt & Vận Hành
 
@@ -132,7 +126,6 @@ Q-SECURE/
     pip install -r requirements.txt
 ```
 
----
 
 #### 2. Khởi Chạy Giao Diện Đồ Họa (PyQt6 GUI — Khuyên Dùng)
 
@@ -144,7 +137,6 @@ Q-SECURE/
 - **Trạm Alice (Gửi):** Chọn vai trò `Alice (Máy Hà — gửi)`, chọn cổng COM kết nối ESP32 (hoặc `Không dùng phần cứng`), chọn ảnh gốc và nhấn **Bắt đầu truyền tin**.
 - **Trạm Bob (Nhận):** Chọn vai trò `Bob (Máy Sơn — nhận)`, nhập IP/Port của trạm Alice và nhấn **Bắt đầu truyền tin**.
 
----
 
 #### 3. Khởi Chạy Giao Diện Dòng Lệnh (CLI Mode)
 
@@ -183,7 +175,6 @@ Dự án được thực hiện phục vụ mục đích học tập và tham d�
 
 > 🏆 This project submitted for the **Science and Engineering Fair** competition.
 
----
 
 ## 🔬 Operating Principle (BB84 Protocol)
 
@@ -195,7 +186,6 @@ The protocol relies on two parties (**Alice** and **Bob**) agreeing on a shared 
 4. **Security check (QBER):** A small portion of the sifted key is publicly compared to calculate the error rate $QBER$. If $QBER > 11\%$, the channel is considered compromised and the key is discarded.
 5. **Data encryption:** The remaining secure portion of the key is used as a keystream to XOR-encrypt a real image.
 
----
 
 ## 🖥️ Stations in the System
 
@@ -206,7 +196,6 @@ The system runs on two independent computers on the same LAN, each connected to 
 | **Hà's Machine** | **Alice** (sender) | Generates the bit/basis strings, controls the servo via ESP32, performs sifting, encrypts the original image, and sends it over a TCP socket. |
 | **Sơn's Machine** | **Bob** (receiver) | Listens for the TCP connection, reads the LDR sensor via ESP32, computes $QBER$, decrypts the image, and displays the result. |
 
----
 
 ## ✨ Key Features
 
@@ -217,7 +206,6 @@ The system runs on two independent computers on the same LAN, each connected to 
 * **XOR image encryption:** Encrypts/decrypts images in real time using the derived quantum key.
 * **Network data transfer:** Moves the encrypted image and its metadata between the two stations over a TCP socket.
 
----
 
 ## 🛠️ Technical Details
 
@@ -226,7 +214,6 @@ The system runs on two independent computers on the same LAN, each connected to 
 * **Data noise filtering:** Automatically catches and discards noisy or malformed data lines from the ESP32 without stopping the program.
 * **Unified architecture:** Both stations share the same codebase, configured flexibly via the `config_local.py` file.
 
----
 
 ## 📁 Directory Structure
 
@@ -268,7 +255,6 @@ Q-SECURE/
 └── run.bat                 # Quick-start script for Windows
 ```
 
----
 
 ## 🚀 Installation & Operation Guide
 
@@ -291,7 +277,6 @@ Q-SECURE/
     pip install -r requirements.txt
 ```
 
----
 
 #### 2. Launching the Graphical Interface (PyQt6 GUI — Recommended)
 
